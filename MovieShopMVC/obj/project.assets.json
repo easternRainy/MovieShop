@@ -1,0 +1,113 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "ApplicationCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ApplicationCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ApplicationCore.dll": {}
+        }
+      },
+      "Intrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "ApplicationCore": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Intrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Intrastructure.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ApplicationCore/1.0.0": {
+      "type": "project",
+      "path": "../ApplicationCore/ApplicationCore.csproj",
+      "msbuildProject": "../ApplicationCore/ApplicationCore.csproj"
+    },
+    "Intrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Intrastructure/Intrastructure.csproj",
+      "msbuildProject": "../Intrastructure/Intrastructure.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "ApplicationCore >= 1.0.0",
+      "Intrastructure >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/zhousicheng/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/MovieShopMVC.csproj",
+      "projectName": "MovieShopMVC",
+      "projectPath": "/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/MovieShopMVC.csproj",
+      "packagesPath": "/Users/zhousicheng/.nuget/packages/",
+      "outputPath": "/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/zhousicheng/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "/Users/zhousicheng/RiderProjects/MovieShop/ApplicationCore/ApplicationCore.csproj": {
+              "projectPath": "/Users/zhousicheng/RiderProjects/MovieShop/ApplicationCore/ApplicationCore.csproj"
+            },
+            "/Users/zhousicheng/RiderProjects/MovieShop/Intrastructure/Intrastructure.csproj": {
+              "projectPath": "/Users/zhousicheng/RiderProjects/MovieShop/Intrastructure/Intrastructure.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
