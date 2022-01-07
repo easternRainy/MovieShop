@@ -1,9 +1,7 @@
 using ApplicationCore.Contracts.Servies;
 using ApplicationCore.Models;
 
-namespace Infrastructure.Services;
-
-public class MovieService : IMovieService
+public class MovieMockService: IMovieService
 {
     public List<MovieCardResponseModel> GetTop30GrossingMovies()
     {

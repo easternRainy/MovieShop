@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using ApplicationCore.Contracts.Servies;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Models;
 
@@ -7,16 +9,19 @@ namespace MovieShopMVC.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private IMovieService _movieService;
+    public HomeController(ILogger<HomeController> logger, IMovieService movieService)
     {
         _logger = logger;
+        _movieService = movieService;
     }
 
     [HttpGet]
     public IActionResult Index()
     {
-        return View("Privacy");
+        var movies = _movieService.GetTop30GrossingMovies();
+        ViewBag.TotalMovies = movies.Count;
+        return View(movies);
     }
 
     // http://localhost:PORT/Home/TopMovies

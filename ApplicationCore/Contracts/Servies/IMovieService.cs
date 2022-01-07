@@ -1,3 +1,5 @@
+using ApplicationCore.Models;
+
 namespace ApplicationCore.Contracts.Servies;
 
 public interface IMovieService
