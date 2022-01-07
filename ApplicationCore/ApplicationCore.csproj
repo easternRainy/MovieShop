@@ -8,11 +8,9 @@
 
     <ItemGroup>
       <Folder Include="Contracts\Repositories" />
-      <Folder Include="Contracts\Servies" />
       <Folder Include="Entities" />
       <Folder Include="Exceptions" />
       <Folder Include="Helpers" />
-      <Folder Include="Models" />
     </ItemGroup>
 
 </Project>
