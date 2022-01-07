@@ -13,11 +13,18 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [HttpGet]
     public IActionResult Index()
+    {
+        return View("Privacy");
+    }
+
+    // http://localhost:PORT/Home/TopMovies
+    [HttpGet]
+    public IActionResult TopMovies()
     {
         return View();
     }
-
     public IActionResult Privacy()
     {
         return View();
