@@ -6,4 +6,6 @@ public class MovieShopDbContexts: DbContext
     {
         
     }
+    
+    public DbSet<Genre> Genres { get; set; }
 }
