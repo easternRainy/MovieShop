@@ -7,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMovieService, MovieMockService>();
 
+// Inject connection string to DbContext
+builder.Services.AddDbContext<MovieShopDbContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
+    }
+);
 
 var app = builder.Build();
 
