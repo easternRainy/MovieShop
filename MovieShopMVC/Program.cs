@@ -1,5 +1,7 @@
 using ApplicationCore.Contracts.Servies;
 using Infrastructure.Services;
+using Intrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

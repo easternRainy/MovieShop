@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApplicationCore.Entities;
 
+[Table("Genre")]
 public class Genre
 {
-    [Table("Genre")]
+    
     public int Id { get; set; }
     
     
