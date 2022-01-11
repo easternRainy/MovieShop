@@ -17,9 +17,10 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var movies = _movieService.GetTop30GrossingMovies();
+        // await any method that returns Task
+        var movies = await _movieService.GetTop30GrossingMovies();
         ViewBag.TotalMovies = movies.Count;
         return View(movies);
     }

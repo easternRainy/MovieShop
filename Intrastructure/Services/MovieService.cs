@@ -5,8 +5,9 @@ namespace Infrastructure.Services;
 
 public class MovieService : IMovieService
 {
-    public List<MovieCardResponseModel> GetTop30GrossingMovies()
+    public async Task<List<MovieCardResponseModel>> GetTop30GrossingMovies()
     {
+        
         var movies = new List<MovieCardResponseModel>()
         {
             new MovieCardResponseModel() {Id = 1, Title = "Inception", PosterUrl = "https://image.tmdb.org/t/p"},
