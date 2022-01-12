@@ -9,5 +9,5 @@ public interface IRepository<T> where T: class
     Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> filter);
     Task<T> Add(T entity);
     Task<T> Update(T entity);
-    Task<T> Delete(int id);
+    Task Delete(int id);
 }

@@ -9,8 +9,7 @@ public class Trailer
     public string TrailerUrl { get; set; }
     
     // Foreign Keys
-    public int MovieId { get; set; }
-    
-    // migration property
+    public int MovieId { get; set; } 
+    // navigation property 
     public Movie Movie { get; set; }
 }

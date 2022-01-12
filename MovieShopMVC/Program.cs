@@ -1,13 +1,16 @@
+using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
 using Infrastructure.Services;
 using Intrastructure.Data;
+using Intrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IMovieService, MovieMockService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 // Inject connection string to DbContext
 builder.Services.AddDbContext<MovieShopDbContext>(
