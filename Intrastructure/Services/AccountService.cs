@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
 using ApplicationCore.Models;
@@ -48,9 +49,30 @@ public class AccountService: IAccountService
         }
     }
 
-    public Task<UserLoginResponseModel> Validate(string email, string password)
+    public async Task<UserLoginResponseModel> Validate(string email, string password)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetUserByEmail(email);
+        if (user == null)
+        {
+            throw new Exception("Email does not exist");
+        }
+
+        var hashedPassword = GetHashedPassword(password, user.Salt);
+        if (hashedPassword == user.HashedPassword)
+        {
+            var dbUser = new UserLoginResponseModel
+            {
+                Id = user.Id,
+                Email = email,
+                DateOfBirth = user.DateOfBirth.GetValueOrDefault(),
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            return dbUser;
+        }
+
+        return null;
     }
 
     private string GetRandomSalt()
