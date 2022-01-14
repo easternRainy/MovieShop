@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "1hxH6P8lfX0kAK2OxZZoU8tnbopbt+UANJDKM3B1WxUBSxqW0zLdPFGnRISyLBxh0qTKsnT7jYNncgQBBqA6Pw==",
+  "dgSpecHash": "AIm7p2Wuc95lWE+5zpgdJ7xPMgPr3M4gXF7juP1C8Czrpaf+q7LQ8yBhS2mvNPq8Tr7mlp9Gd9Z8q+hUp0fYHw==",
   "success": true,
   "projectFilePath": "/Users/zhousicheng/RiderProjects/MovieShop/Intrastructure/Intrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/zhousicheng/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/Users/zhousicheng/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.1/microsoft.aspnetcore.cryptography.internal.6.0.1.nupkg.sha512",
+    "/Users/zhousicheng/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/6.0.1/microsoft.aspnetcore.cryptography.keyderivation.6.0.1.nupkg.sha512",
     "/Users/zhousicheng/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/Users/zhousicheng/.nuget/packages/microsoft.data.sqlclient/2.1.4/microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "/Users/zhousicheng/.nuget/packages/microsoft.data.sqlclient.sni.runtime/2.1.1/microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
