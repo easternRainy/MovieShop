@@ -1,6 +1,8 @@
+using ApplicationCore.Models;
+
 namespace ApplicationCore.Contracts.Servies;
 
 public interface ICastService
 {
-    Task<CastDetailsReponseModel> GetCastDetails(int id);
+    Task<CastDetailsResponseModel> GetCastDetails(int id);
 }

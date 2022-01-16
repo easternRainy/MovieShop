@@ -14,7 +14,8 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
     
     
     // not tested yet
-    public async Task<List<Cast>> GetMoviesById(int id)
+    // Question: what is the return type if we want to join many models
+    public async Task<List<Cast>> GetById(int id)
     {
         
         
