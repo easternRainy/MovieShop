@@ -26,6 +26,8 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Favorites()
     {
-        
+        var userId = Convert.ToInt32(HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+
+        return View();
     }
 }

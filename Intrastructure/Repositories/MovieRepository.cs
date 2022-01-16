@@ -25,6 +25,5 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         var movie = await _dbContext.Movies.Include(m => m.Trailers).Include(m => m.GenresOfMovie).ThenInclude( m => m.Genre ).SingleOrDefaultAsync(m => m.Id == id);
         return movie;
     }
-        
-        
+
 }

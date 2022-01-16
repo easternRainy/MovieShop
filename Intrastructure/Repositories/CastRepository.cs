@@ -12,11 +12,27 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
         
     }
     
-    // public override async Task<Cast> GetById(int id)
-    // {
-    //     var cast = await _dbContext.Casts.Include(m => m.Trailers).Include(m => m.GenresOfMovie).ThenInclude( m => m.Genre ).SingleOrDefaultAsync(m => m.Id == id);
-    //     return cast;
-    // }
+    
+    // not tested yet
+    public async Task<List<Cast>> GetMoviesById(int id)
+    {
+        
+        
+        var allMovieIdsByCast = await _dbContext.MovieCasts
+                                              .Include(mc => mc.Cast)
+                                              .Where(mc => mc.CastId == id)
+                                              .Select(mc => new
+                                              {
+                                                  mc.MovieId, 
+                                                  mc.Cast.Name, 
+                                                  mc.Character, 
+                                                  mc.Cast.Gender, 
+                                                  mc.Cast.ProfilePath,
+                                                  mc.Cast.TmdbUrl
+                                              })
+                                              .ToListAsync();
+        return allMovieIdsByCast;
+    }
 }
 
 
