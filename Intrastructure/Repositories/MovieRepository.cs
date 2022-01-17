@@ -19,6 +19,13 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
         return movies;
     }
+    
+    // // for testing
+    // public List<Movie> Get30HighestGrossingMovies()
+    // {
+    //     var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
+    //     return movies;
+    // }
 
     public override async Task<Movie> GetById(int id)
     {

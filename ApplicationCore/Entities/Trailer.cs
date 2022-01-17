@@ -10,6 +10,7 @@ public class Trailer
     
     // Foreign Keys
     public int MovieId { get; set; } 
+    
     // navigation property 
     public Movie Movie { get; set; }
 }

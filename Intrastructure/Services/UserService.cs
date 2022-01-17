@@ -1,3 +1,4 @@
+using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
 using ApplicationCore.Models;
 
@@ -5,6 +6,12 @@ namespace Infrastructure.Services;
 
 public class UserService: IUserService
 {
+    public readonly IUserRepository _userRepository;
+
+    public UserService(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
     public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
     {
         throw new NotImplementedException();

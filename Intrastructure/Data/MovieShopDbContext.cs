@@ -6,9 +6,18 @@ namespace Intrastructure.Data;
 
 public class MovieShopDbContext: DbContext
 {
-    public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options): base(options)
+    // // when using
+    // public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options): base(options)
+    // {
+    //     
+    // }
+    
+    // when testing
+
+    private readonly string _connectionString;
+    public MovieShopDbContext(string connectionString)
     {
-        
+        _connectionString = connectionString;
     }
     
     public DbSet<Crew> Casts { get; set; }

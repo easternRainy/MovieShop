@@ -25,4 +25,14 @@ public class Movie
     public List<Trailer> Trailers { get; set; }
     public List<MovieGenre> GenresOfMovie { get; set; }
     
+    public List<MovieCast> CastsOfMovie { get; set; }
+    
+    public List<Favorite> FavoritesOfMovie { get; set; }
+    
+    public List<Review> ReviewsOfMovie { get; set; }
+    
+    public List<Purchase> PurchasesOfMovie { get; set; }
+    
+    public List<MovieCrew> CrewsOfMovie { get; set; }
+    
 }

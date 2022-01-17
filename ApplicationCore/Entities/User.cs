@@ -16,4 +16,9 @@ public class User
     public bool? IsLocked { get; set; }
     public int? AccessFailedCount { get; set; }
     
+    public List<Purchase> PurchasesOfUser { get; set; }
+    public List<Favorite> FavoritesOfUser { get; set; }
+    public List<Review> ReviewsOfUser { get; set; }
+    public List<UserRole> RolesOfUser { get; set; }
+    
 }
