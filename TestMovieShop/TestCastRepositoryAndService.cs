@@ -40,7 +40,17 @@ public class TestCastRepositoryAndService
         {
             Console.WriteLine(id);
         }
-        
+    }
+
+    [Test]
+    public async Task TestGetMoviesByCastId()
+    {
+        var movieCards = await _castRepository.GetMoviesById(1);
+
+        foreach (var card in movieCards)
+        {
+            Console.WriteLine(card.ToString());
+        }
     }
 
 }

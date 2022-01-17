@@ -8,6 +8,6 @@ public class MovieCardResponseModel
 
     public string ToString()
     {
-        return this.Title + ' ' + this.PosterUrl;
+        return this.Id + " " + this.Title + " " + this.PosterUrl;
     }
 }

@@ -1,5 +1,6 @@
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Intrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.CompilerServices;
@@ -24,6 +25,23 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
             .ToListAsync();
             
         return allMovieIdsByCast;
+    }
+
+    public async Task<List<MovieCardResponseModel>> GetMoviesById(int id)
+    {
+        var allMoviesByCast = await _dbContext.MovieCasts
+            .Include(mc => mc.Movie)
+            .Where(mc => mc.CastId == id)
+            .Select(mc => new {mc.Movie.Id, mc.Movie.Title, mc.Movie.PosterUrl})
+            .ToListAsync();
+
+        List<MovieCardResponseModel> allMovieCardsByCast = new List<MovieCardResponseModel>();
+        foreach (var movie in allMoviesByCast)
+        {
+            allMovieCardsByCast.Add(new MovieCardResponseModel{Id = movie.Id, Title = movie.Title, PosterUrl = movie.PosterUrl});
+        }
+
+        return allMovieCardsByCast;
     }
 }
 
