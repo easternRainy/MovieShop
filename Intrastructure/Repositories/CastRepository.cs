@@ -17,6 +17,12 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
     
     // not tested yet
     // Question: what is the return type if we want to join many models
+    public async Task<Cast> GetById(int id)
+    {
+        var cast = await _dbContext.Casts.SingleOrDefaultAsync(c => c.Id == id);
+        return cast;
+    }
+    
     public async Task<List<int>> GetMovieIdsById(int id)
     {
         var allMovieIdsByCast = await _dbContext.MovieCasts

@@ -53,4 +53,11 @@ public class TestCastRepositoryAndService
         }
     }
 
+    [Test]
+    public async Task TestGetCastDetailsById()
+    {
+        var castDetails = await _castService.GetCastDetails(1);
+        Console.WriteLine(castDetails.ToString());
+    }
+
 }

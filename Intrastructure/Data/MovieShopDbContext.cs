@@ -29,7 +29,7 @@ public class MovieShopDbContext: DbContext
     
     
     
-    public DbSet<Crew> Casts { get; set; }
+    public DbSet<Cast> Casts { get; set; }
     public DbSet<Crew> Crews { get; set; }
     public DbSet<Favorite> Favorites { get; set; } 
     public DbSet<Genre> Genres { get; set; }
