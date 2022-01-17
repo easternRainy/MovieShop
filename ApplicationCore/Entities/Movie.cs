@@ -34,5 +34,10 @@ public class Movie
     public List<Purchase> PurchasesOfMovie { get; set; }
     
     public List<MovieCrew> CrewsOfMovie { get; set; }
+
+    public string ToString()
+    {
+        return this.Title;
+    }
     
 }

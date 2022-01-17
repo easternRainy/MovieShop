@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add repositories to the container.
 builder.Services.AddControllersWithViews();
-// builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
@@ -21,7 +21,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Add services to the container.
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-// builder.Services.AddScoped<ICastService, CastService>();
+builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IUserService, UserService>();
