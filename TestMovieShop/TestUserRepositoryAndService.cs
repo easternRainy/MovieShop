@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
+using ApplicationCore.Models;
 using Infrastructure.Services;
 using Intrastructure.Data;
 using Intrastructure.Repositories;
@@ -31,6 +32,13 @@ public class TestUserRepositoryAndService
     }
 
     [Test]
+    public async Task TestGetUserById()
+    {
+        var user = await _userRepository.GetById(1);
+        Console.WriteLine(user.ToString());
+    }
+
+    [Test]
     public async Task TestGetAllPurchasesOfUser()
     {
         var purchases = await _userRepository.GetAllPurchasesOfUser(1);
@@ -53,6 +61,23 @@ public class TestUserRepositoryAndService
             Console.WriteLine("User did not buy this movie");
         }
     }
+
+    [Test]
+    public async Task TestGetAllMoviesPurchasedByUser()
+    {
+        var movies = await _userRepository.GetAllMoviesPurchasedByUser(1);
+        foreach (var movie in movies)
+        {
+            Console.WriteLine(movie.ToString());
+        }
+    }
+
+    [Test]
+    public async Task TestGetAllPurchasesForUser()
+    {
+        var purchaseModel = await _userService.GetAllPurchasesForUser(1);
+        Console.WriteLine(purchaseModel.ToString());
+    }
     
     [Test]
     public async Task TestGetFavoriteByUserAndMovie()
@@ -66,5 +91,34 @@ public class TestUserRepositoryAndService
         {
             Console.WriteLine("User did not favorite this movie");
         }
+    }
+
+    // Test this function again after Favorites database contains values
+    [Test]
+    public async Task TestFavoriteExists()
+    {
+        var result1 = await _userService.FavoriteExists(1, 492);
+        var result2 = await _userService.FavoriteExists(1, 493);
+        Console.WriteLine(result1 + " " + result2);
+    }
+    
+    [Test]
+    public async Task TestIsMoviePurchased()
+    {
+        PurchaseRequestModel p1 = new PurchaseRequestModel
+        {
+            MovieId = 492,
+            UserId = 1
+        };
+        
+        PurchaseRequestModel p2 = new PurchaseRequestModel
+        {
+            MovieId = 493,
+            UserId = 1
+        };
+        
+        var result1 = await _userService.IsMoviePurchased(p1, 1);
+        var result2 = await _userService.IsMoviePurchased(p2, 1);
+        Console.WriteLine(result1 + " " + result2);
     }
 }

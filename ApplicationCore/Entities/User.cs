@@ -20,5 +20,10 @@ public class User
     public List<Favorite> FavoritesOfUser { get; set; }
     public List<Review> ReviewsOfUser { get; set; }
     public List<UserRole> RolesOfUser { get; set; }
+
+    public string ToString()
+    {
+        return this.FirstName + " " + this.LastName;
+    }
     
 }

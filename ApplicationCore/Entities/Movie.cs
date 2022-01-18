@@ -37,7 +37,7 @@ public class Movie
 
     public string ToString()
     {
-        return this.Title;
+        return this.Id + " " + this.Title;
     }
     
 }

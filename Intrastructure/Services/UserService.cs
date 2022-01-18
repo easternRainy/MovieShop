@@ -20,14 +20,19 @@ public class UserService: IUserService
 
     public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
     {
-        throw new NotImplementedException();
+        var purchase = await _userRepository.GetPurchaseByUserAndMovie(userId, purchaseRequest.MovieId);
+        return purchase != null;
     }
 
     public async Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
     {
-        //List<Purchase> purchases = await _userRepository.GetAllPurchasesOfUser(id);
-        throw new NotImplementedException();
         
+        var user = await _userRepository.GetById(id);
+        var movies = await _userRepository.GetAllMoviesPurchasedByUser(id);
+        var purchaseModel = PurchaseResponseModel.FromEntity(user, movies);
+
+        return purchaseModel;
+
     }
 
     public async Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId)
@@ -47,12 +52,18 @@ public class UserService: IUserService
 
     public async Task<bool> FavoriteExists(int id, int movieId)
     {
-        throw new NotImplementedException();
+        Favorite favorite = await _userRepository.GetFavoriteByUserAndMovie(id, movieId);
+        return favorite != null;
     }
 
+    // not tested yet
     public async Task<FavoriteResponseModel> GetAllFavoritesForUser(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetById(id);
+        var movies = await _userRepository.GetAllMoviesFavoritedByUser(id);
+        var favoriteModel = FavoriteResponseModel.FromEntity(user, movies);
+
+        return favoriteModel;
     }
 
     public async Task AddMovieReview(ReviewRequestModel reviewRequest)

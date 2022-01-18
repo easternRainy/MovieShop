@@ -8,9 +8,11 @@ public interface IUserRepository : IRepository<User>
 
     Task<List<Purchase>> GetAllPurchasesOfUser(int id);
     Task<Purchase> GetPurchaseByUserAndMovie(int userId, int movieId);
+    Task<List<Movie>> GetAllMoviesPurchasedByUser(int userId);
 
     Task<List<Favorite>> GetAllFavoritesOfUser(int id);
     Task<Favorite> GetFavoriteByUserAndMovie(int userId, int movieId);
+    Task<List<Movie>> GetAllMoviesFavoritedByUser(int userId);
 
     Task<List<Review>> GetAllReviewsOfUser(int id);
     

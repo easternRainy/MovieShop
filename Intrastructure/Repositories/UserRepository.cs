@@ -43,6 +43,16 @@ public class UserRepository: EfRepository<User>, IUserRepository
 
         return purchase;
     }
+
+    public async Task<List<Movie>> GetAllMoviesPurchasedByUser(int userId)
+    {
+        var movies = await _dbContext.Purchases
+            .Include(p => p.Movie)
+            .Where(p => p.UserId == userId)
+            .Select(p => p.Movie)
+            .ToListAsync();
+        return movies;
+    }
     
     /*
      * Favorite Related Operations
@@ -63,6 +73,16 @@ public class UserRepository: EfRepository<User>, IUserRepository
             .SingleOrDefaultAsync();
 
         return purchase;
+    }
+
+    public async Task<List<Movie>> GetAllMoviesFavoritedByUser(int userId)
+    {
+        var movies = await _dbContext.Favorites
+            .Include(f => f.Movie)
+            .Where(f => f.UserId == userId)
+            .Select(f => f.Movie)
+            .ToListAsync();
+        return movies;
     }
     
     /*

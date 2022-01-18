@@ -43,7 +43,7 @@ public class EfRepository<T> : IRepository<T> where T: class
     
     public virtual async Task<T> GetById(int id)
     {
-        var entity = await _dbContext.Set<T>().FindAsync();
+        var entity = await _dbContext.Set<T>().FindAsync(id);
         return entity;
     }
 
