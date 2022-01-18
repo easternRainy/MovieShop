@@ -108,6 +108,30 @@ public class UserRepository: EfRepository<User>, IUserRepository
             .ToListAsync();
         return movies;
     }
+
+    public async Task<Favorite> AddNewFavorite(int userId, int movieId)
+    {
+        var favorite = await GetFavoriteByUserAndMovie(userId, movieId);
+        if (favorite == null)
+        {
+            var newFavorite = new Favorite {UserId = userId, MovieId = movieId};
+            await _dbContext.Favorites.AddAsync(newFavorite);
+            await _dbContext.SaveChangesAsync();
+
+            return newFavorite;
+        }
+        return null;
+    }
+
+    public async Task RemoveFavorite(int userId, int movieId)
+    {
+        var favorite = GetFavoriteByUserAndMovie(userId, movieId);
+        if (favorite != null)
+        {
+            _dbContext.Favorites.Remove(favorite.Result);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
     
     /*
      * Review Related Operations

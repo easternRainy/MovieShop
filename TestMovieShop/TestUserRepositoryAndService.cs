@@ -132,4 +132,28 @@ public class TestUserRepositoryAndService
         var getNewPurchase = await _userRepository.GetPurchaseByUserAndMovie(userId, movieId);
         Console.WriteLine(getNewPurchase.ToString());
     }
+
+    [Test]
+    public async Task TestAddNewFavorite()
+    {
+        int userId = 1;
+        int movieId = 10;
+        var favorite = await _userRepository.AddNewFavorite(userId, movieId);
+        var query = await _userRepository.GetFavoriteByUserAndMovie(userId, movieId);
+        Console.WriteLine(query.ToString());
+    }
+
+    [Test]
+    public async Task TestRemoveFavorite()
+    {
+        int userId = 1;
+        int movieId = 10;
+        await _userRepository.RemoveFavorite(userId, movieId);
+        var query = await _userRepository.GetFavoriteByUserAndMovie(userId, movieId);
+
+        if (query == null)
+        {
+            Console.WriteLine("Removing success");
+        }
+    }
 }

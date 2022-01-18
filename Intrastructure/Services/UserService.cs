@@ -45,12 +45,16 @@ public class UserService: IUserService
 
     public async Task AddFavorite(FavoriteRequestModel favoriteRequest)
     {
-        throw new NotImplementedException();
+        int userId = favoriteRequest.UserId;
+        int movieId = favoriteRequest.MovieId;
+        var favorite = await _userRepository.AddNewFavorite(userId, movieId);
     }
 
     public async Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
     {
-        throw new NotImplementedException();
+        int userId = favoriteRequest.UserId;
+        int movieId = favoriteRequest.MovieId;
+        await _userRepository.RemoveFavorite(userId, movieId);
     }
 
     public async Task<bool> FavoriteExists(int id, int movieId)
