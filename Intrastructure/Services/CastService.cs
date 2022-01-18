@@ -17,17 +17,8 @@ public class CastService: ICastService
     public async Task<CastDetailsResponseModel> GetCastDetails(int id)
     {
         Cast cast = await _castRepository.GetById(id);
-        List<MovieCardResponseModel> moviesOfCast = await _castRepository.GetMoviesById(id);
-
-        CastDetailsResponseModel castDetails = new CastDetailsResponseModel
-        {
-            Id = id,
-            Name = cast.Name,
-            Gender = cast.Gender,
-            TmdbUrl = cast.TmdbUrl,
-            ProfilePath = cast.ProfilePath,
-            MoviesOfCast = moviesOfCast
-        };
+        List<Movie> moviesOfCast = await _castRepository.GetMoviesById(id);
+        CastDetailsResponseModel castDetails = CastDetailsResponseModel.FromEntity(cast, moviesOfCast);
 
         return castDetails;
     }

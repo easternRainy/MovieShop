@@ -25,4 +25,25 @@ public class CastDetailsResponseModel
 
         return sb.ToString();
     }
+
+    public static CastDetailsResponseModel FromEntity(Cast cast, List<Movie> movies)
+    {
+        List<MovieCardResponseModel> movieCards = new List<MovieCardResponseModel>();
+        foreach (Movie movie in movies)
+        {
+            movieCards.Add(MovieCardResponseModel.FromEntity(movie));
+        }
+
+        CastDetailsResponseModel castDetails = new CastDetailsResponseModel
+        {
+            Id = cast.Id,
+            Name = cast.Name,
+            Gender = cast.Gender,
+            TmdbUrl = cast.TmdbUrl,
+            ProfilePath = cast.ProfilePath,
+            MoviesOfCast = movieCards
+        };
+
+        return castDetails;
+    }
 }

@@ -1,3 +1,5 @@
+using ApplicationCore.Entities;
+
 namespace ApplicationCore.Models;
 
 public class MovieCardResponseModel
@@ -9,5 +11,17 @@ public class MovieCardResponseModel
     public string ToString()
     {
         return this.Id + " " + this.Title + " " + this.PosterUrl;
+    }
+
+    public static MovieCardResponseModel FromEntity(Movie movie)
+    {
+        MovieCardResponseModel movieCard = new MovieCardResponseModel
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            PosterUrl = movie.PosterUrl
+        };
+
+        return movieCard;
     }
 }

@@ -1,5 +1,6 @@
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
+using ApplicationCore.Entities;
 using ApplicationCore.Models;
 
 namespace Infrastructure.Services;
@@ -24,7 +25,9 @@ public class UserService: IUserService
 
     public async Task<PurchaseResponseModel> GetAllPurchasesForUser(int id)
     {
+        //List<Purchase> purchases = await _userRepository.GetAllPurchasesOfUser(id);
         throw new NotImplementedException();
+        
     }
 
     public async Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId)

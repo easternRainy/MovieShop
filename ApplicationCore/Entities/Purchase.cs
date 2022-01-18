@@ -11,4 +11,9 @@ public class Purchase
     
     public User User { get; set; }
     public Movie Movie { get; set; }
+
+    public String ToString()
+    {
+        return this.UserId + " " + this.MovieId + " " + this.TotalPrice;
+    }
 }

@@ -33,21 +33,15 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
         return allMovieIdsByCast;
     }
 
-    public async Task<List<MovieCardResponseModel>> GetMoviesById(int id)
+    public async Task<List<Movie>> GetMoviesById(int id)
     {
         var allMoviesByCast = await _dbContext.MovieCasts
             .Include(mc => mc.Movie)
             .Where(mc => mc.CastId == id)
-            .Select(mc => new {mc.Movie.Id, mc.Movie.Title, mc.Movie.PosterUrl})
+            .Select(mc => mc.Movie)
             .ToListAsync();
 
-        List<MovieCardResponseModel> allMovieCardsByCast = new List<MovieCardResponseModel>();
-        foreach (var movie in allMoviesByCast)
-        {
-            allMovieCardsByCast.Add(new MovieCardResponseModel{Id = movie.Id, Title = movie.Title, PosterUrl = movie.PosterUrl});
-        }
-
-        return allMovieCardsByCast;
+        return allMoviesByCast;
     }
 }
 

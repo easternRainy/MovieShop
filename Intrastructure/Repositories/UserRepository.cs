@@ -18,5 +18,14 @@ public class UserRepository: EfRepository<User>, IUserRepository
 
         return user;
     }
+
+    public async Task<List<Purchase>> GetAllPurchasesOfUser(int id)
+    {
+        var purchases = await _dbContext.Purchases
+            .Where(p => p.UserId == id)
+            .ToListAsync();
+
+        return purchases;
+    }
 }
 

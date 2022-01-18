@@ -7,5 +7,5 @@ namespace ApplicationCore.Contracts.Repositories;
 public interface ICastRepository: IRepository<Cast>
 {
     Task<List<int>> GetMovieIdsById(int id);
-    Task<List<MovieCardResponseModel>> GetMoviesById(int id);
+    Task<List<Movie>> GetMoviesById(int id);
 }
