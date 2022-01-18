@@ -1,0 +1,18 @@
+@model ApplicationCore.Models.PurchaseResponseModel
+
+@{
+    Layout = null;
+}
+
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var movie in Model.MovieCards)
+            {
+                <div class="col-6 col-xl-2 cl-sm-4 col-lg-3">
+                    <partial name="_MovieCard" model="movie"/>
+                </div>
+            }
+        </div>
+    </div>
+</div>

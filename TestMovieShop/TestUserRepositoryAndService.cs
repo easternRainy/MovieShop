@@ -126,8 +126,8 @@ public class TestUserRepositoryAndService
     [Test]
     public async Task TestAddNewPurchase()
     {
-        int userId = 1;
-        int movieId = 491;
+        int userId = 49821;
+        int movieId = 3;
         decimal price = 9.99M;
         var newPurchase = await _userRepository.AddNewPurchase(userId, movieId, price);
         var getNewPurchase = await _userRepository.GetPurchaseByUserAndMovie(userId, movieId);
