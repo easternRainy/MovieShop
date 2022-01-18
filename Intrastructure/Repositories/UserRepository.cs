@@ -125,10 +125,10 @@ public class UserRepository: EfRepository<User>, IUserRepository
 
     public async Task RemoveFavorite(int userId, int movieId)
     {
-        var favorite = GetFavoriteByUserAndMovie(userId, movieId);
+        var favorite = await GetFavoriteByUserAndMovie(userId, movieId);
         if (favorite != null)
         {
-            _dbContext.Favorites.Remove(favorite.Result);
+            _dbContext.Favorites.Remove(favorite);
             await _dbContext.SaveChangesAsync();
         }
     }
@@ -143,6 +143,80 @@ public class UserRepository: EfRepository<User>, IUserRepository
             .ToListAsync();
 
         return reviews;
+    }
+   
+    public async Task<Review> GetReviewByUserAndMovie(int userId, int movieId)
+    {
+        var review = await _dbContext.Reviews
+            .Where(r => r.UserId == userId && r.MovieId == movieId)
+            .SingleOrDefaultAsync();
+
+        return review;
+    }
+    
+    public async Task<Review> AddNewReview(int userId, int movieId, decimal rating, string text)
+    {
+        var review = await GetReviewByUserAndMovie(userId, movieId);
+
+        if (review == null)
+        {
+            var newReview = new Review { UserId = userId, MovieId = movieId, Rating = rating, ReviewText = text};
+            await _dbContext.Reviews.AddAsync(newReview);
+            await _dbContext.SaveChangesAsync();
+            return review;
+        }
+        else
+        {
+            var newReview = await UpdateReview(userId, movieId, rating, text);
+            return newReview;
+        }
+    }
+    
+    public async Task<Review> UpdateReview(int userId, int movieId, decimal rating, string text)
+    {
+        var review = await GetReviewByUserAndMovie(userId, movieId);
+        
+        if (review == null)
+        {
+            var newReview = await AddNewReview(userId, movieId, rating, text);
+            return newReview;
+        }
+        else
+        {
+
+            var query = await _dbContext.Reviews
+                .Where(r => r.UserId == userId && r.MovieId == movieId)
+                .SingleOrDefaultAsync();
+
+            query.Rating = rating;
+            query.ReviewText = text;
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+
+                return new Review {UserId = userId, MovieId = movieId, Rating = rating, ReviewText = text};
+            }
+            catch
+            {
+                throw new DbUpdateException();
+            }
+        }
+    }
+
+    public async Task<Review> DeleteReviewByUserAndMovie(int userId, int movieId)
+    {
+        var review = await GetReviewByUserAndMovie(userId, movieId);
+        if (review == null)
+        {
+            return null;
+        }
+        else
+        {
+            _dbContext.Reviews.Remove(review);
+            await _dbContext.SaveChangesAsync();
+            return review;
+        }
     }
     
 }

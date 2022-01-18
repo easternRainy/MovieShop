@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Servies;
@@ -154,6 +155,32 @@ public class TestUserRepositoryAndService
         if (query == null)
         {
             Console.WriteLine("Removing success");
+        }
+    }
+
+    [Test]
+    public async Task TestAddNewReview()
+    {
+        var newReview = await _userRepository.AddNewReview(101, 1, 9.9M, "It is awesome!");
+        var query = await _userRepository.GetReviewByUserAndMovie(101, 1);
+        Console.WriteLine(query.ToString());
+    }
+
+    [Test]
+    public async Task TestUpdateReview()
+    {
+        var updatedReview = await _userRepository.UpdateReview(101, 1, 8.9M, "Still awesome");
+        Console.WriteLine(updatedReview.ToString());
+    }
+
+    [Test]
+    public async Task TestDeleteReview()
+    {
+        var deletedReview = await _userRepository.DeleteReviewByUserAndMovie(101, 1);
+        var query = await _userRepository.GetReviewByUserAndMovie(101, 1);
+        if (query == null)
+        {
+            Console.WriteLine("Delete Review Succeed");
         }
     }
 }

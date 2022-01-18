@@ -15,4 +15,8 @@ public interface IUserRepository : IRepository<User>
     Task<Favorite> AddNewFavorite(int userId, int movieId);
     Task RemoveFavorite(int userId, int movieId);
     Task<List<Review>> GetAllReviewsOfUser(int id);
+    Task<Review> GetReviewByUserAndMovie(int userId, int movieId);
+    Task<Review> AddNewReview(int userId, int movieId, decimal rating, string text);
+    Task<Review> UpdateReview(int userId, int movieId, decimal rating, string text);
+    Task<Review> DeleteReviewByUserAndMovie(int userId, int movieId);
 }

@@ -90,7 +90,11 @@ public class UserService: IUserService
 
     public async Task<UserReviewResponseModel> GetAllReviewsByUser(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetById(id);
+        var reviews = await _userRepository.GetAllReviewsOfUser(id);
+        var reviewModel = UserReviewResponseModel.FromEntity(user, reviews);
+
+        return reviewModel;
     }
 
 }

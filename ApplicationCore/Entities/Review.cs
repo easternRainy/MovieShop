@@ -10,4 +10,9 @@ public class Review
     public Movie Movie { get; set; }
     public User User { get; set; }
 
+    public string ToString()
+    {
+        return this.UserId + " " + this.MovieId + " " + this.Rating + " " + this.ReviewText;
+    }
+
 }
