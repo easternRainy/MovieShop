@@ -13,7 +13,7 @@ public interface IUserRepository : IRepository<User>
     Task<Favorite> GetFavoriteByUserAndMovie(int userId, int movieId);
     Task<List<Movie>> GetAllMoviesFavoritedByUser(int userId);
     Task<Favorite> AddNewFavorite(int userId, int movieId);
-    Task RemoveFavorite(int userId, int movieId);
+    Task<Favorite> RemoveFavorite(int userId, int movieId);
     Task<List<Review>> GetAllReviewsOfUser(int id);
     Task<Review> GetReviewByUserAndMovie(int userId, int movieId);
     Task<Review> AddNewReview(int userId, int movieId, decimal rating, string text);

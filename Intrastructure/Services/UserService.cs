@@ -54,7 +54,7 @@ public class UserService: IUserService
     {
         int userId = favoriteRequest.UserId;
         int movieId = favoriteRequest.MovieId;
-        await _userRepository.RemoveFavorite(userId, movieId);
+        var removedFavorite = await _userRepository.RemoveFavorite(userId, movieId);
     }
 
     public async Task<bool> FavoriteExists(int id, int movieId)
@@ -75,17 +75,28 @@ public class UserService: IUserService
 
     public async Task AddMovieReview(ReviewRequestModel reviewRequest)
     {
-        throw new NotImplementedException();
+        var newReview = await _userRepository.AddNewReview(
+            reviewRequest.UserId,
+            reviewRequest.MovieId,
+            reviewRequest.Rating,
+            reviewRequest.ReviewText
+        );
+        
     }
 
     public async Task UpdateMovieReview(ReviewRequestModel reviewRequest)
     {
-        throw new NotImplementedException();
+        var updatedReview = await _userRepository.UpdateReview(
+            reviewRequest.UserId,
+            reviewRequest.MovieId,
+            reviewRequest.Rating,
+            reviewRequest.ReviewText
+        );
     }
 
     public async Task DeleteMovieReview(int userId, int movieId)
     {
-        throw new NotImplementedException();
+        var deletedReview = await _userRepository.DeleteReviewByUserAndMovie(userId, movieId);
     }
 
     public async Task<UserReviewResponseModel> GetAllReviewsByUser(int id)

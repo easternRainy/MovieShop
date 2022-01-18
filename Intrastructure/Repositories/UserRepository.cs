@@ -123,14 +123,17 @@ public class UserRepository: EfRepository<User>, IUserRepository
         return null;
     }
 
-    public async Task RemoveFavorite(int userId, int movieId)
+    public async Task<Favorite> RemoveFavorite(int userId, int movieId)
     {
         var favorite = await GetFavoriteByUserAndMovie(userId, movieId);
         if (favorite != null)
         {
             _dbContext.Favorites.Remove(favorite);
             await _dbContext.SaveChangesAsync();
+            return favorite;
         }
+
+        return null;
     }
     
     /*
