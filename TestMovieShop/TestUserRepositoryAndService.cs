@@ -14,6 +14,7 @@ public class TestUserRepositoryAndService
 {
     private MovieShopDbContext _dbContext;
     private IUserRepository _userRepository;
+    private IPurchaseRepository _purchaseRepository;
     private IUserService _userService;
     
     [SetUp]
@@ -24,6 +25,7 @@ public class TestUserRepositoryAndService
             "Server=DESKTOP-E633351,1433;Database=MovieShop;User Id=SA;Password=Guest-Turing;MultipleActiveResultSets=True;";
         _dbContext = new MovieShopDbContext(connection);
         _userRepository = new UserRepository(_dbContext);
+        _purchaseRepository = new PurchaseRepository(_dbContext);
         _userService = new UserService(_userRepository);
         Console.WriteLine("Testing Environment Setting Succeeded");
     }
@@ -35,6 +37,34 @@ public class TestUserRepositoryAndService
         foreach (var purchase in purchases)
         {
             Console.WriteLine(purchase.ToString());
+        }
+    }
+
+    [Test]
+    public async Task TestGetPurchaseByUserAndMovie()
+    {
+        var purchase = await _userRepository.GetPurchaseByUserAndMovie(1, 492);
+        if (purchase != null)
+        {
+            Console.WriteLine(purchase.ToString());
+        }
+        else
+        {
+            Console.WriteLine("User did not buy this movie");
+        }
+    }
+    
+    [Test]
+    public async Task TestGetFavoriteByUserAndMovie()
+    {
+        var favorite = await _userRepository.GetFavoriteByUserAndMovie(1, 492);
+        if (favorite != null)
+        {
+            Console.WriteLine(favorite.ToString());
+        }
+        else
+        {
+            Console.WriteLine("User did not favorite this movie");
         }
     }
 }

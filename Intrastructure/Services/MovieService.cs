@@ -20,7 +20,7 @@ public class MovieService : IMovieService
 
         foreach (var movie in movies)
         {
-            movieCards.Add(new MovieCardResponseModel{ Id = movie.Id, Title = movie.Title, PosterUrl = movie.PosterUrl, });
+            movieCards.Add(MovieCardResponseModel.FromEntity(movie));
         }
 
         return movieCards;

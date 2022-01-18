@@ -8,4 +8,9 @@ public class Favorite
     
     public Movie Movie { get; set; }
     public User User { get; set; }
+
+    public string ToString()
+    {
+        return this.MovieId + " " + this.UserId;
+    }
 }

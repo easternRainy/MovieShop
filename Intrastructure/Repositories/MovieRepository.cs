@@ -16,13 +16,22 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
     //...
     public async Task<List<Movie>> Get30HighestGrossingMovies()
     {
-        var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
+        var movies = await _dbContext.Movies
+            .OrderByDescending(m => m.Revenue)
+            .Take(30)
+            .ToListAsync();
+        
         return movies;
     }
 
     public override async Task<Movie> GetById(int id)
     {
-        var movie = await _dbContext.Movies.Include(m => m.Trailers).Include(m => m.GenresOfMovie).ThenInclude( m => m.Genre ).SingleOrDefaultAsync(m => m.Id == id);
+        var movie = await _dbContext.Movies
+            .Include(m => m.Trailers)
+            .Include(m => m.GenresOfMovie)
+            .ThenInclude( m => m.Genre )
+            .SingleOrDefaultAsync(m => m.Id == id);
+        
         return movie;
     }
 
