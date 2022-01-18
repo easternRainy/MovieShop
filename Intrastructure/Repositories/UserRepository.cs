@@ -53,6 +53,30 @@ public class UserRepository: EfRepository<User>, IUserRepository
             .ToListAsync();
         return movies;
     }
+
+    // problem: how to generate unique purchase number
+    public async Task<Purchase> AddNewPurchase(int userId, int movieId, decimal price)
+    {
+        var purchase = await GetPurchaseByUserAndMovie(userId, movieId);
+
+        if (purchase == null)
+        {
+            // user has already purchased this moive
+            Purchase newPurchase = new Purchase
+            {
+                UserId = userId,
+                MovieId = movieId,
+                TotalPrice = price,
+                PurchaseDateTime = DateTime.Now
+            };
+            await _dbContext.Purchases.AddAsync(newPurchase);
+            await _dbContext.SaveChangesAsync();
+            
+            return newPurchase;
+        }
+
+        return null;
+    }
     
     /*
      * Favorite Related Operations

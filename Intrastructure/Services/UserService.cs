@@ -15,7 +15,10 @@ public class UserService: IUserService
     }
     public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
     {
-        throw new NotImplementedException();
+        var newPurchase =
+            await _userRepository.AddNewPurchase(userId, purchaseRequest.MovieId, purchaseRequest.TotalPrice);
+
+        return newPurchase != null;
     }
 
     public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)

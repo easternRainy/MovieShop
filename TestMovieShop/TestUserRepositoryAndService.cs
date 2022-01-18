@@ -121,4 +121,15 @@ public class TestUserRepositoryAndService
         var result2 = await _userService.IsMoviePurchased(p2, 1);
         Console.WriteLine(result1 + " " + result2);
     }
+
+    [Test]
+    public async Task TestAddNewPurchase()
+    {
+        int userId = 1;
+        int movieId = 491;
+        decimal price = 9.99M;
+        var newPurchase = await _userRepository.AddNewPurchase(userId, movieId, price);
+        var getNewPurchase = await _userRepository.GetPurchaseByUserAndMovie(userId, movieId);
+        Console.WriteLine(getNewPurchase.ToString());
+    }
 }
