@@ -32,8 +32,8 @@ public class UserController : Controller
         // give list of movies user Favorited and should return a View that will show MovieCards and should use MovieCard partial view.
 
         var userId = Convert.ToInt32(HttpContext?.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-
-        return View();
+        var model = await _userService.GetAllFavoritesForUser(userId);
+        return View(model);
     }
 
     //for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup

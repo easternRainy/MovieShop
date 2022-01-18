@@ -137,8 +137,8 @@ public class TestUserRepositoryAndService
     [Test]
     public async Task TestAddNewFavorite()
     {
-        int userId = 1;
-        int movieId = 10;
+        int userId = 49821;
+        int movieId = 13;
         var favorite = await _userRepository.AddNewFavorite(userId, movieId);
         var query = await _userRepository.GetFavoriteByUserAndMovie(userId, movieId);
         Console.WriteLine(query.ToString());

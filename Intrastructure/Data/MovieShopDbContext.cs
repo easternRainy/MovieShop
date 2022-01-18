@@ -6,14 +6,25 @@ namespace Intrastructure.Data;
 
 public class MovieShopDbContext: DbContext
 {
-    // when using by MVC application
+    /*
+     * when using by MVC application
+     */
+    
     public MovieShopDbContext(DbContextOptions<MovieShopDbContext> options): base(options)
     {
         
     }
     
-    // // when testing
-    // // Reference: https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/
+    /*
+     * End when using by MVC application
+     */
+    
+    
+    /*
+     * when testing
+     * Reference: https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/
+     */
+     
     // private readonly string _connectionString;
     // public MovieShopDbContext(string connectionString)
     // {
@@ -24,9 +35,10 @@ public class MovieShopDbContext: DbContext
     // {
     //     optionsBuilder.UseSqlServer(_connectionString);
     // }
-    //
-    // // end when testing
     
+    /*
+     * end when testing
+     */
     
     
     public DbSet<Cast> Casts { get; set; }
