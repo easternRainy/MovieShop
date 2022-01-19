@@ -4,8 +4,9 @@ public class MovieDetailsResponseModel
 {
     public MovieDetailsResponseModel()
     {
-        Genres = new List<GenreModel>();
         Casts = new List<CastModel>();
+        Genres = new List<GenreModel>();
+        Reviews = new List<UserReviewResponseModel>();
         Trailers = new List<TrailerModel>();
     }
     
@@ -23,10 +24,13 @@ public class MovieDetailsResponseModel
     public DateTime? Releasedate { get; set; }
     public int? RunTime { get; set; }
     public decimal? Price { get; set; }
+    public int FavoritesCount { get; set; }
     
-    public List<GenreModel> Genres { get; set; }
-    public List<TrailerModel> Trailers { get; set; }
     public List<CastModel> Casts { get; set; }
+    public List<GenreModel> Genres { get; set; }
+    public List<UserReviewResponseModel> Reviews { get; set; }
+    public List<TrailerModel> Trailers { get; set; }
+    
 
     public string ToString()
     {

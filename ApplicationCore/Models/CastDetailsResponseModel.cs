@@ -12,6 +12,7 @@ public class CastDetailsResponseModel
     public string TmdbUrl { get; set; }
     public string ProfilePath { get; set; }
     
+    // IEumerable
     public List<MovieCardResponseModel> MoviesOfCast { get; set; }
 
     public string ToString()

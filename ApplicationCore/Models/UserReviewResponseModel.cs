@@ -6,7 +6,7 @@ namespace ApplicationCore.Models;
 public class UserReviewResponseModel
 {
     public int UserId;
-    public List<ReviewRequestModel> Reviews;
+    public List<MovieReviewResponseModel> Reviews;
 
     public string ToString()
     {
@@ -23,10 +23,10 @@ public class UserReviewResponseModel
 
     public static UserReviewResponseModel FromEntity(User user, List<Review> reviews)
     {
-        var reviewModels = new List<ReviewRequestModel>();
+        var reviewModels = new List<MovieReviewResponseModel>();
         foreach (var review in reviews)
         {
-            reviewModels.Add(ReviewRequestModel.FromEntity(review));
+            reviewModels.Add(MovieReviewResponseModel.FromEntity(review));
         }
 
         return new UserReviewResponseModel { UserId = user.Id, Reviews = reviewModels};
