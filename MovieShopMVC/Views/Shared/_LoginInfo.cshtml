@@ -1,0 +1,36 @@
+@using System.Security.Claims
+@using MovieShopMVC.Helpers
+@inject ICurrentLoginUserService _currentUser
+@*
+if user is authenticated, show their Name and dropdown items 
+with links for fav and purchases movies and edit profile
+*@
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        <ul class="nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    @_currentUser.FullName
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="User" asp-action="Purchases"> Movies </a>
+                    <a class="dropdown-item" asp-controller="User" asp-action="Favorites"> Favorites </a>
+                    <a class="dropdown-item" asp-controller="User" asp-action="Profile"> Account </a>
+                    <a class="dropdown-item" asp-controller="User" asp-action="EditProfile"> View Profile </a>
+                    <a class="dropdown-item" asp-controller="User" asp-action=""> Edit Profile </a>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout"> Logout </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="text-end">
+        <a class="btn btn-primary btn-outline-light me-2" asp-controller="Account" asp-action="Login"> Login </a>
+        <a class="btn btn-primary btn-outline-light me-2" asp-controller="Account" asp-action="Register"> Regiser </a>
+    </div>
+}

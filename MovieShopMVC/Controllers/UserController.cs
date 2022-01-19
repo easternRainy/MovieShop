@@ -47,5 +47,17 @@ public class UserController : Controller
     {
         throw new NotImplementedException();
     }
+
+    [HttpGet]
+    public async Task Profile()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet]
+    public async Task EditProfile()
+    {
+        throw new NotImplementedException();
+    }
     
 }

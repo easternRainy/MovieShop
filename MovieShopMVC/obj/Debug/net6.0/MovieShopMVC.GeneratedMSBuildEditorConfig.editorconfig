@@ -43,8 +43,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTW92aWVzL0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/Views/Shared/Components/Genres/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0NvbXBvbmVudHMvR2VucmVzL0RlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/Views/Shared/_LoginInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Mb2dpbkluZm8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/zhousicheng/RiderProjects/MovieShop/MovieShopMVC/Views/Shared/_MovieCard.cshtml]

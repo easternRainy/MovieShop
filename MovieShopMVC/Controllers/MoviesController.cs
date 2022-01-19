@@ -16,6 +16,13 @@ public class MoviesController : Controller
     public async Task<IActionResult> Details(int id)
     {
         var movieDetails = await _movieService.GetMovieDetails(id);
+        
         return View(movieDetails);
+    }
+
+    [HttpGet]
+    public async Task Genre()
+    {
+        throw new NotImplementedException();
     }
 }

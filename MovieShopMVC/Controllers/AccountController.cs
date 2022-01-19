@@ -83,6 +83,12 @@ public class AccountController : Controller
 
         return LocalRedirect("~/");
     }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return RedirectToAction("Login");
+    }
     
 }
 
