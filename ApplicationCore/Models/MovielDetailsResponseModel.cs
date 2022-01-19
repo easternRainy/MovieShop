@@ -1,3 +1,5 @@
+using ApplicationCore.Entities;
+
 namespace ApplicationCore.Models;
 
 public class MovieDetailsResponseModel
@@ -35,5 +37,12 @@ public class MovieDetailsResponseModel
     public string ToString()
     {
         return "Title: " + this.Title + ' ' + "Rating: " + this.Rating + ' ' + "Budget: " + this.Budget;
+    }
+
+    public static MovieDetailsResponseModel FromEntity(Movie movie,
+        List<Cast> casts, List<Genre> genres, List<Review> reviews, List<Trailer> trailers)
+    {
+        throw new NotImplementedException();
+
     }
 }
