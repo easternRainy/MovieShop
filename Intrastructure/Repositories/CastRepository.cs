@@ -43,6 +43,30 @@ public class CastRepository: EfRepository<Cast>, ICastRepository
 
         return allMoviesByCast;
     }
+    
+    public async Task<List<Cast>> GetCastsByMovie(int movieId)
+    {
+        var casts = await _dbContext.MovieCasts
+            .Include(mc => mc.Cast)
+            .Where(mc => mc.MovieId == movieId)
+            .Select(mc => mc.Cast)
+            .OrderBy(c => c.Id)
+            .ToListAsync();
+
+        return casts;
+    }
+
+    public async Task<List<MovieCast>> GetMovieCastsByMovie(int movieId)
+    {
+        var movieCasts = await _dbContext.MovieCasts
+            .Where(mc => mc.MovieId == movieId)
+            .OrderBy(mc => mc.CastId)
+            .ToListAsync();
+
+        return movieCasts;
+    }
+    
+    
 }
 
 

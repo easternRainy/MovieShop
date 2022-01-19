@@ -8,10 +8,11 @@ public class MovieService : IMovieService
 {
 
     private readonly IMovieRepository _movieRepository;
-
+    
     public MovieService(IMovieRepository movieRepository)
     {
         _movieRepository = movieRepository;
+        
     }
     public async Task<List<MovieCardResponseModel>> GetTop30GrossingMovies()
     {
@@ -25,30 +26,39 @@ public class MovieService : IMovieService
 
         return movieCards;
     }
-
     public async Task<MovieDetailsResponseModel> GetMovieDetails(int id)
     {
-        var movieDetails = await _movieRepository.GetById(id);
-        var movieModel = new MovieDetailsResponseModel
-        {
-            Id = movieDetails.Id,
-            Title = movieDetails.Title,
-            PosterUrl = movieDetails.PosterUrl,
-            BackdropUrl = movieDetails.BackdropUrl,
-            ImdbUrl = movieDetails.ImdbUrl
-        };
+        // var movieDetails = await _movieRepository.GetById(id);
+        // var movieModel = new MovieDetailsResponseModel
+        // {
+        //     Id = movieDetails.Id,
+        //     Title = movieDetails.Title,
+        //     PosterUrl = movieDetails.PosterUrl,
+        //     BackdropUrl = movieDetails.BackdropUrl,
+        //     ImdbUrl = movieDetails.ImdbUrl
+        // };
+        //
+        // foreach (var genre in movieDetails.GenresOfMovie)
+        // {
+        //     movieModel.Genres.Add(new GenreModel {Id = genre.GenreId, Name=genre.Genre.Name});
+        // }
+        //
+        // foreach (var trailer in movieDetails.Trailers)
+        // {
+        //     movieModel.Trailers.Add(new TrailerModel {Id = trailer.Id, Name=trailer.Name, TrailerUrl = trailer.TrailerUrl});
+        // }
+        //
+        // return movieModel;
 
-        foreach (var genre in movieDetails.GenresOfMovie)
-        {
-            movieModel.Genres.Add(new GenreModel {Id = genre.GenreId, Name=genre.Genre.Name});
-        }
+        var movie = await _movieRepository.GetById(id);
+        var casts = await _movieRepository.GetCastsByMovie(id);
+        var movieCasts = await _movieRepository.GetMovieCastsByMovie(id);
+        var genres = await _movieRepository.GetGenresOfMovie(id);
+        var reviews = await _movieRepository.GetReviewsOfMovie(id);
+        var trailers = await _movieRepository.GetTrailersOfMovie(id);
+        var movieDetails = MovieDetailsResponseModel.FromEntity(movie, casts, movieCasts, genres, reviews, trailers);
 
-        foreach (var trailer in movieDetails.Trailers)
-        {
-            movieModel.Trailers.Add(new TrailerModel {Id = trailer.Id, Name=trailer.Name, TrailerUrl = trailer.TrailerUrl});
-        }
-
-        return movieModel;
+        return movieDetails;
     }
 
     

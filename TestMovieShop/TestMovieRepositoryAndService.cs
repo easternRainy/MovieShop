@@ -60,7 +60,36 @@ public class Tests
     [Test]
     public async Task TestGetMovieDetails()
     {
-        var movie = await _movieService.GetMovieDetails(20);
+        var movie = await _movieService.GetMovieDetails(1);
+
+        int i = 0;
         Console.WriteLine(movie.ToString());
+    }
+
+    [Test]
+    public async Task TestGetCastsByMovie()
+    {
+        int movieId = 2;
+        var casts = await _movieRepository.GetCastsByMovie(movieId);
+        var movieCasts = await _movieRepository.GetMovieCastsByMovie(movieId);
+        
+        Console.WriteLine(casts.Count);
+        Console.WriteLine(movieCasts.Count);
+
+        for (int i = 0; i < casts.Count; i++)
+        {
+            Console.WriteLine(casts[i].ToString());
+            Console.WriteLine(movieCasts[i].ToString());
+        }
+
+    }
+
+    [Test]
+    public async Task TestGetMovieDetails2()
+    {
+        int movieId = 1;
+        var details = _movieService.GetMovieDetails(movieId);
+        int i = 1;
+        
     }
 }

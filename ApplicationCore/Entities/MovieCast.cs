@@ -8,4 +8,9 @@ public class MovieCast
     
     public Movie Movie { get; set; }
     public Cast Cast { get; set; }
+
+    public string ToString()
+    {
+        return this.MovieId + " " + this.CastId + this.Character;
+    }
 }

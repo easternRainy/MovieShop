@@ -9,16 +9,16 @@
         </div>
         <div class="col">
             <h2>@Model.Title</h2>
-            <h10>Your mind is the scene of the crime.</h10><br>
+            <h10>@Model.Tagline</h10><br>
             <h9>
-                @Model.RunTime m | 2010         
-                <span class="badge bg-secondary">Adventure</span>
-                <span class="badge bg-secondary">Action</span>
-                <span class="badge bg-secondary">Science Fiction</span>
+                @Model.RunTime m | @Model.Releasedate
+                
+                @foreach (var genre in Model.Genres)
+                {
+                    <span class="badge bg-secondary">@genre.Name</span>
+                }
             </h9>
-            <p>
-                Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: "inception", the implantation of another person''s idea into a target''s subconscious.
-            </p>
+            <p> @Model.Overview </p>
         </div>
         <div class="col">
             <!-- Button trigger modal -->
@@ -74,7 +74,7 @@
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmed $9.9</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmed $@Model.Price</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -94,35 +94,36 @@
     </div>
 
     <div class="row">
-        <div class="col">w
+        <div class="col">
             Movie Facts
 
             <ul class="list-group">
-                <li class="list-group-item">Release Date <span class="badge bg-secondary">Jul 15, 2010</span></li>
-                <li class="list-group-item">Run Time <span class="badge bg-secondary">148 m</span></li>
+                <li class="list-group-item">Release Date <span class="badge bg-secondary"> @Model.Releasedate </span></li>
+                <li class="list-group-item">Run Time <span class="badge bg-secondary"> @Model.RunTime m</span></li>
                 <li class="list-group-item">Box Office <span class="badge bg-secondary">$825,532,764.00</span></li>
-                <li class="list-group-item">Budget <span class="badge bg-secondary">$160,000,000.00</span></li>
+                <li class="list-group-item">Budget <span class="badge bg-secondary"> @Model.Budget </span></li>
             </ul>
 
-            Trailers
+            @foreach (var trailer in Model.Trailers)
+            {
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="@trailer.TrailerUrl"> @trailer.Name </a></li>
+                </ul>
+            }
 
-            <ul class="list-group">
-                <li class="list-group-item"><a href="https://www.youtube.com/watch?v=Jvurpf91omw">Inception</a></li>
-            </ul>
+            
         </div>
         <div class="col">
             Cast
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item"><img src="https://image.tmdb.org/t/p/w342//wo2hJpn04vbtmh0B9utCFdsQhxM.jpg" style="width:7%;" class="bg-info rounded-circle"/></li>
-                <li class="list-group-item">Leonardo DiCaprio</li>
-                <li class="list-group-item">Dom Cobb</li>
-            </ul>
-              <ul class="list-group list-group-horizontal-sm">
-                <li class="list-group-item">IMG</li>
-                <li class="list-group-item">Ken Watanable</li>
-                <li class="list-group-item">Mr. Saito</li>
-              </ul>
-              
+            @foreach (var cast in Model.Casts)
+            {
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item"><img src="@cast.ProfilePath" style="width:7%;" class="bg-info rounded-circle"/></li>
+                    <li class="list-group-item"> @cast.Name </li>
+                    <li class="list-group-item"> @cast.Character </li>
+                </ul>
+            }
+
         </div>
     </div>
 </div>

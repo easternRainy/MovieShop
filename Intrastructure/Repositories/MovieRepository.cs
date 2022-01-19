@@ -34,5 +34,63 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         
         return movie;
     }
+    
+    public async Task<List<Cast>> GetCastsByMovie(int movieId)
+    {
+        var casts = await _dbContext.MovieCasts
+            .Include(mc => mc.Cast)
+            .Where(mc => mc.MovieId == movieId)
+            .Select(mc => mc.Cast)
+            .OrderBy(c => c.Id)
+            .Take(10)
+            .ToListAsync();
+
+        return casts;
+    }
+
+    public async Task<List<MovieCast>> GetMovieCastsByMovie(int movieId)
+    {
+        var movieCasts = await _dbContext.MovieCasts
+            .Where(mc => mc.MovieId == movieId)
+            .OrderBy(mc => mc.CastId)
+            .Take(10)
+            .ToListAsync();
+
+        return movieCasts;
+    }
+
+    
+
+    public async Task<List<Genre>> GetGenresOfMovie(int movieId)
+    {
+        var genres = await _dbContext.MovieGenres
+            .Include(mg => mg.Genre)
+            .Where(mg => mg.MovieId == movieId)
+            .Select(mg => mg.Genre)
+            .Take(10)
+            .ToListAsync();
+
+        return genres;
+    }
+
+    public async Task<List<Review>> GetReviewsOfMovie(int movieId)
+    {
+        var reviews = await _dbContext.Reviews
+            .Where(r => r.MovieId == movieId)
+            .Take(10)
+            .ToListAsync();
+
+        return reviews;
+    }
+
+    public async Task<List<Trailer>> GetTrailersOfMovie(int movieId)
+    {
+        var trailers = await _dbContext.Trailers
+            .Where(t => t.MovieId == movieId)
+            .Take(10)
+            .ToListAsync();
+
+        return trailers;
+    }
 
 }

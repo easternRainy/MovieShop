@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ApplicationCore.Entities;
 
 namespace ApplicationCore.Models;
@@ -11,6 +12,7 @@ public class CastModel
 
     public static CastModel FromEntity(Cast cast, MovieCast movieCast)
     {
+        Debug.Assert(cast.Id == movieCast.CastId);
         return new CastModel
         {
             Id = cast.Id,
