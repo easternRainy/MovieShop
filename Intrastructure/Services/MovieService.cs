@@ -28,27 +28,6 @@ public class MovieService : IMovieService
     }
     public async Task<MovieDetailsResponseModel> GetMovieDetails(int id)
     {
-        // var movieDetails = await _movieRepository.GetById(id);
-        // var movieModel = new MovieDetailsResponseModel
-        // {
-        //     Id = movieDetails.Id,
-        //     Title = movieDetails.Title,
-        //     PosterUrl = movieDetails.PosterUrl,
-        //     BackdropUrl = movieDetails.BackdropUrl,
-        //     ImdbUrl = movieDetails.ImdbUrl
-        // };
-        //
-        // foreach (var genre in movieDetails.GenresOfMovie)
-        // {
-        //     movieModel.Genres.Add(new GenreModel {Id = genre.GenreId, Name=genre.Genre.Name});
-        // }
-        //
-        // foreach (var trailer in movieDetails.Trailers)
-        // {
-        //     movieModel.Trailers.Add(new TrailerModel {Id = trailer.Id, Name=trailer.Name, TrailerUrl = trailer.TrailerUrl});
-        // }
-        //
-        // return movieModel;
 
         var movie = await _movieRepository.GetById(id);
         var casts = await _movieRepository.GetCastsByMovie(id);

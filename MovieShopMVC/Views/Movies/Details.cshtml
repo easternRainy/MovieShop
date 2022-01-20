@@ -1,3 +1,4 @@
+@using ApplicationCore.Entities
 @model ApplicationCore.Models.MovieDetailsResponseModel
 
 <div class="container">
@@ -20,7 +21,7 @@
         </div>
         <div class="col">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="ReviewModal.html/#exampleModal">
                 Review
             </button>
             <br>
@@ -28,61 +29,24 @@
                 BUY $@Model.Price
             </button>
             
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Review</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                        <div class="modal-body">
-                            <div class="rating-drop-down">
-                                <label>Choose a rate:</label>
-                                <select name="rates" id="rates">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                </select>
-                            </div>
-
-                            <div class="review-content">
-                                <label>Write Your Review:</label>
-                                <input type="text" size=50 height=50>
-                            </div>
-                        </div>
-                        
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-                </div>
-            </div>
+            
 
             <!-- Modal -->
             <div class="modal fade" id="buyMovieModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmed $@Model.Price</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"> Purchase Confirmation </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Please Confirm to Buy movie @Model.Title at $@Model.Price.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" asp-controller="User" asp-action="Buy" asp-route-id="@Model.Id" data-bs-dismiss="modal"> Confirm </button>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                    ...
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
                 </div>
             </div>
 
