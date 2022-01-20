@@ -21,8 +21,11 @@ public class MoviesController : Controller
     }
 
     [HttpGet]
-    public async Task Genre()
+    public async Task<IActionResult> Genre(int id)
     {
-        throw new NotImplementedException();
+        int genreId = id;
+        var movieModels = await _movieService.GetMoviesOfGenre(genreId);
+        
+        return View(movieModels);
     }
 }

@@ -8,5 +8,6 @@ public interface IMovieService
     // controller will access theses methods
     Task<List<MovieCardResponseModel>> GetTop30GrossingMovies();
     Task<MovieDetailsResponseModel> GetMovieDetails(int id);
+    Task<List<MovieCardResponseModel>> GetMoviesOfGenre(int genreId);
 
 }

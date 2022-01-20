@@ -61,5 +61,19 @@ public class MovieService : IMovieService
         return movieDetails;
     }
 
+    public async Task<List<MovieCardResponseModel>> GetMoviesOfGenre(int id)
+    {
+        int genreId = id;
+        
+        var movies = await _movieRepository.GetMoviesOfGenre(genreId);
+        List<MovieCardResponseModel> movieModels = new List<MovieCardResponseModel>();
+        foreach (var movie in movies)
+        {
+            movieModels.Add(MovieCardResponseModel.FromEntity(movie));
+        }
+
+        return movieModels;
+    }
+
     
 }

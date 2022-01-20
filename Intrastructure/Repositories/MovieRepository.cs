@@ -73,6 +73,18 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         return genres;
     }
 
+    public async Task<List<Movie>> GetMoviesOfGenre(int genreId)
+    {
+        var movies = await _dbContext.MovieGenres
+            .Include(mg => mg.Movie)
+            .Where(mg => mg.GenreId == genreId)
+            .Select(mg => mg.Movie)
+            .Take(10)
+            .ToListAsync();
+
+        return movies;
+    }
+
     public async Task<List<Review>> GetReviewsOfMovie(int movieId)
     {
         var reviews = await _dbContext.Reviews

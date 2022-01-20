@@ -25,4 +25,9 @@ public class GenreService: IGenreService
 
         return genreModels;
     }
+
+    public async Task<List<MovieCardResponseModel>> GetMoviesByGenre(int genreId)
+    {
+        throw new NotImplementedException();
+    }
 }
