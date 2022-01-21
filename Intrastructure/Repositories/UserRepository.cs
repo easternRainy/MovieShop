@@ -197,7 +197,6 @@ public class UserRepository: EfRepository<User>, IUserRepository
             try
             {
                 await _dbContext.SaveChangesAsync();
-
                 return new Review {UserId = userId, MovieId = movieId, Rating = rating, ReviewText = text};
             }
             catch

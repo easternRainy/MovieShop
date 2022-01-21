@@ -19,7 +19,6 @@
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
-                        <option value="10">10</option>
                     </select>
                 </div>
 
@@ -31,8 +30,23 @@
             
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="WriteMovieReview(@Model.Id)">Submit</button>
         </div>
+        
+        <script>
+            function WriteMovieReview(movieId) {
+               xmlhttp = new XMLHttpRequest();
+               xmlhttp.open("POST", "/User/Review", true);
+               var FD = new FormData();
+               var rating = document.querySelector(".rating-drop-down select").value;
+               var reviewText = document.querySelector(".review-content input").value;
+               FD.append("movieId", movieId);
+               FD.append("rating", rating);
+               FD.append("reviewText", reviewText);
+               
+               xmlhttp.send(FD);
+            }
+        </script>
     </div>
     </div>
 </div>

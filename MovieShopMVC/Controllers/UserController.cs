@@ -54,7 +54,7 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Buy()
     {
-        Console.WriteLine("Here it is");
+        
         int movieId = Convert.ToInt32(Request.Form["movieId"]);
         int userId = GetUserId();
         decimal totalPrice = Convert.ToDecimal(Request.Form["totalPrice"]);
@@ -73,20 +73,34 @@ public class UserController : Controller
     }
     
     // for user to add a new Review, when user clicks on Review button in Movie Details Page and Review Confirmation Popup
-    [HttpGet]
-    public async Task Review()
-    {
-        throw new NotImplementedException();
-    }
-
     [HttpPost]
-    public async Task<IActionResult> Review(ReviewRequestModel model)
+    public async Task<IActionResult> Review()
     {
+        int movieId = Convert.ToInt32(Request.Form["movieId"]);
         int userId = GetUserId();
-        await _userService.AddMovieReview(model);
+        decimal rating = Convert.ToDecimal(Request.Form["rating"]);
+        var reviewText = Request.Form["reviewText"];
 
-        return RedirectToAction("Review");
+        var reviewModel = new ReviewRequestModel
+        {
+            MovieId = movieId,
+            UserId = userId,
+            Rating = rating,
+            ReviewText = reviewText
+        };
+        
+        await _userService.AddMovieReview(reviewModel);
+        return RedirectToAction("Purchases");
     }
+
+    // [HttpPost]
+    // public async Task<IActionResult> Review(ReviewRequestModel model)
+    // {
+    //     int userId = GetUserId();
+    //     await _userService.AddMovieReview(model);
+    //
+    //     return RedirectToAction("Review");
+    // }
 
     [HttpGet]
     public async Task Profile()
