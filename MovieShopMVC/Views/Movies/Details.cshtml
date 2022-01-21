@@ -21,7 +21,7 @@
         </div>
         <div class="col">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="ReviewModal.html/#exampleModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Review
             </button>
             <br>
@@ -29,28 +29,9 @@
                 BUY $@Model.Price
             </button>
             
-            
+            <partial name="_ReviewModal"/>
 
-            <!-- Modal -->
-            <div class="modal fade" id="buyMovieModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"> Purchase Confirmation </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Please Confirm to Buy movie @Model.Title at $@Model.Price.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" asp-controller="User" asp-action="Buy" asp-route-id="@Model.Id" data-bs-dismiss="modal"> Confirm </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            <partial name="_PurchaseModal"/>
             
         </div>
     </div>

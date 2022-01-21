@@ -43,19 +43,31 @@ public class UserController : Controller
         return View(model);
     }
 
-    [HttpGet]
-    //for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup
-    public async Task<IActionResult> Buy()
-    {
-        throw new NotImplementedException();
-        
-    }
+    // [HttpGet]
+    // //for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup
+    // public async Task<IActionResult> Buy()
+    // {
+    //     throw new NotImplementedException();
+    //     
+    // }
 
     [HttpPost]
-    public async Task<IActionResult> Buy(PurchaseRequestModel model)
+    public async Task<IActionResult> Buy()
     {
+        Console.WriteLine("Here it is");
+        int movieId = Convert.ToInt32(Request.Form["movieId"]);
         int userId = GetUserId();
-        var purchaseSucceed = await _userService.PurchaseMovie(model, userId);
+        decimal totalPrice = Convert.ToDecimal(Request.Form["totalPrice"]);
+        
+        var purchaseModel = new PurchaseRequestModel
+        {
+            MovieId = movieId,
+            UserId = userId,
+            PurchaseDateTime = DateTime.Now,
+            TotalPrice = totalPrice
+        };
+        
+        var purchaseSucceed = await _userService.PurchaseMovie(purchaseModel, userId);
 
         return RedirectToAction("Purchases");
     }

@@ -1,0 +1,31 @@
+
+<!-- Modal -->
+<div class="modal fade" id="buyMovieModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Purchase Confirmation </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please Confirm to Buy movie @Model.Title at $@Model.Price. 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="PurchaseMovie(@Model.Id, @Model.Price)"> Confirm </button>
+                
+                <script>
+                    function PurchaseMovie(movieId, totalPrice) {
+                        xmlhttp = new XMLHttpRequest();
+                        xmlhttp.open("POST", "/User/Buy", true);
+                        var FD = new FormData();
+                        FD.append("movieId", movieId);
+                        FD.append("totalPrice", totalPrice);
+                        
+                        xmlhttp.send(FD);
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
