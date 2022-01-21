@@ -54,7 +54,8 @@ public class AccountService: IAccountService
         var user = await _userRepository.GetUserByEmail(email);
         if (user == null)
         {
-            throw new Exception("Email does not exist");
+            //throw new Exception("Email does not exist");
+            return null;
         }
 
         var hashedPassword = GetHashedPassword(password, user.Salt);
