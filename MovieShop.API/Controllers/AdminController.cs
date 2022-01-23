@@ -43,5 +43,12 @@ namespace MovieShop.API.Controllers
             return Ok(pagedMovies);
         }
 
+        [HttpPost]
+        [Route("movie")]
+        public async Task CreateMovie([FromBody] MovieCreateRequestModel model)
+        {
+            await _movieService.CreateMovie(model);
+        }
+
     }
 }

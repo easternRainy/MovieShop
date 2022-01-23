@@ -110,5 +110,10 @@ public class MovieService : IMovieService
 
         return new PagedResultSet<MovieCardResponseModel>(pagedMovieCards, page, pageSize, pagedMovies.Count);
     }
+    
+    public async Task CreateMovie(MovieCreateRequestModel model)
+    {
+        await _movieRepository.CreateMovie(model);
+    }
 
 }

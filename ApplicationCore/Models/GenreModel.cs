@@ -11,4 +11,14 @@ public class GenreModel
     {
         return new GenreModel {Id = genre.Id, Name = genre.Name};
     }
+
+    public static Genre ToEntity(GenreModel model)
+    {
+        Genre genreEntity = new Genre
+        {
+            Name = model.Name
+        };
+
+        return genreEntity;
+    }
 }

@@ -86,8 +86,6 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         return movieCasts;
     }
 
-    
-
     public async Task<List<Genre>> GetGenresOfMovie(int movieId)
     {
         var genres = await _dbContext.MovieGenres
@@ -177,6 +175,13 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
 
         return pagedMovies;
+    }
+
+    public async Task CreateMovie(MovieCreateRequestModel model)
+    {
+        var movieEntity = MovieCreateRequestModel.ToEntity(model);
+        await _dbContext.Movies.AddAsync(movieEntity);
+        await _dbContext.SaveChangesAsync();
     }
 
 }
