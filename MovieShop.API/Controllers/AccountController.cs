@@ -19,6 +19,27 @@ namespace MovieShop.API.Controllers
             _accountService = accountService;
         }
 
+        [HttpGet]
+        [Route("Account/{id:int}")]
+        public async Task<IActionResult> GetAccountById(int id)
+        {
+            var user = await _accountService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpPost]
+        [Route("Account")]
+        public async Task CreateAccount([FromBody] UserRegisterRequestModel model)
+        {
+            var success = await _accountService.Register(model);
+            
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel model)

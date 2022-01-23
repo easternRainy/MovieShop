@@ -17,6 +17,13 @@ public class AccountService: IAccountService
     {
         this._userRepository = userRepository;
     }
+
+    public async Task<UserLoginResponseModel> GetUserById(int id)
+    {
+        var user = await _userRepository.GetById(id);
+        var userModel = UserLoginResponseModel.FromEntity(user);
+        return userModel;
+    }
     public async Task<bool> Register(UserRegisterRequestModel model)
     {
         var user = await _userRepository.GetUserByEmail(model.Email);

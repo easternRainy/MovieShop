@@ -21,6 +21,14 @@ public class UserRepository: EfRepository<User>, IUserRepository
 
         return user;
     }
+
+    public override async Task<User> GetById(int id)
+    {
+        var user = await _dbContext.Users.Where(u => u.Id == id).SingleOrDefaultAsync();
+        return user;
+    }
+
+    
     
     /*
      * Purchase Related Operations
