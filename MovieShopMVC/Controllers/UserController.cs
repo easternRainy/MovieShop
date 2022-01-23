@@ -43,6 +43,20 @@ public class UserController : Controller
         return View(model);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> AddFavorite()
+    {
+        int movieId = Convert.ToInt32(Request.Form["movieId"]);
+        int userId = GetUserId();
+        var favoriteModel = new FavoriteRequestModel
+        {
+            MovieId = movieId,
+            UserId = userId
+        };
+        await _userService.AddFavorite(favoriteModel);
+        
+        return RedirectToAction("Favorites");
+    }
     // [HttpGet]
     // //for user to buy a movie, when user click on Purchase button in Movie Details Page Purchase Confirmation Popup
     // public async Task<IActionResult> Buy()

@@ -1,7 +1,9 @@
 using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Intrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Intrastructure.Repositories;
 
@@ -21,6 +23,31 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
             .Take(30)
             .ToListAsync();
         
+        return movies;
+    }
+
+    public async Task<List<Movie>> GetTop30RatingMovies()
+    {
+        var ids = await _dbContext.Reviews
+            .Include(r => r.Movie)
+            .GroupBy(r => r.MovieId)
+            .Select(g => new
+            {
+                MovieId = g.Key,
+                AvgRate = g.Average(r => r.Rating)
+            })
+            .OrderByDescending(rg => rg.AvgRate)
+            .Select(rg => rg.MovieId)
+            .Take(30)
+            .ToListAsync();
+
+        // reference: 
+        // https://stackoverflow.com/questions/15275269/sort-a-list-from-another-list-ids
+        var movies = await _dbContext.Movies
+            .Where(m => ids.Contains(m.Id))
+            // .OrderBy(m => ids.IndexOf(m.Id)) // does not work
+            .ToListAsync();
+
         return movies;
     }
 
@@ -103,6 +130,27 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
             .ToListAsync();
 
         return trailers;
+    }
+
+    public async Task<PagedResultSet<Movie>> GetMoviesByTitle(int pageSize = 30, int page = 1, string title = "")
+    {
+        // SELECT * FROM [Movies] WHERE Title LIKE '%ave%' ORDER BY TITLE OFFSET 0 FETCH NEXT ROWS 30;
+        var movies = await _dbContext.Movies
+            .Where(m => m.Title.Contains(title))
+            .OrderBy(m => m.Title)
+            .Skip((page-1)*pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+        
+        // total movies for that condition
+        // SELECT COUNT(*) From Movies WHERE Title LIKE ..
+        var totalMoviesCount = await _dbContext.Movies
+            .Where(m => m.Title.Contains(title))
+            .CountAsync();
+
+        var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
+
+        return pagedMovies;
     }
 
 }

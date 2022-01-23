@@ -12,6 +12,16 @@ public class MoviesController : Controller
         _movieService = movieService;
     }
     // GET
+
+    // [HttpGet]
+    // [Route("")]
+    // // http://localhost:.../api/movies?pagesize=30&page=2&title=ave
+    // public async Task<IActionResult> GetMoviesByPagination([FromQuery] int pageSize = 30, [FromQuery] int page = 1,
+    //     string title = "")
+    // {
+    //     var movies = await _movieService.GetMoviesByPagination(pageSize, page, title);
+    //     return View(movies);
+    // }
     
     public async Task<IActionResult> Details(int id)
     {
