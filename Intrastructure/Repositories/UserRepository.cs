@@ -67,7 +67,8 @@ public class UserRepository: EfRepository<User>, IUserRepository
                 UserId = userId,
                 MovieId = movieId,
                 TotalPrice = price,
-                PurchaseDateTime = DateTime.Now
+                PurchaseDateTime = DateTime.Now,
+                PurchaseNumber = Guid.NewGuid()
             };
             await _dbContext.Purchases.AddAsync(newPurchase);
             await _dbContext.SaveChangesAsync();

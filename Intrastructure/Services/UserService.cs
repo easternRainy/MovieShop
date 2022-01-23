@@ -13,17 +13,17 @@ public class UserService: IUserService
     {
         _userRepository = userRepository;
     }
-    public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId)
+    public async Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest)
     {
         var newPurchase =
-            await _userRepository.AddNewPurchase(userId, purchaseRequest.MovieId, purchaseRequest.TotalPrice);
+            await _userRepository.AddNewPurchase(purchaseRequest.UserId, purchaseRequest.MovieId, purchaseRequest.TotalPrice);
 
         return newPurchase != null;
     }
 
-    public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId)
+    public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest)
     {
-        var purchase = await _userRepository.GetPurchaseByUserAndMovie(userId, purchaseRequest.MovieId);
+        var purchase = await _userRepository.GetPurchaseByUserAndMovie(purchaseRequest.UserId, purchaseRequest.MovieId);
         return purchase != null;
     }
 

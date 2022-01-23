@@ -81,7 +81,7 @@ public class UserController : Controller
             TotalPrice = totalPrice
         };
         
-        var purchaseSucceed = await _userService.PurchaseMovie(purchaseModel, userId);
+        var purchaseSucceed = await _userService.PurchaseMovie(purchaseModel);
 
         return RedirectToAction("Purchases");
     }

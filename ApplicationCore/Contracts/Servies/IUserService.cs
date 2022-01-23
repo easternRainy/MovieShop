@@ -4,8 +4,8 @@ namespace ApplicationCore.Contracts.Servies;
 
 public interface IUserService
 {
-    Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
-    Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
+    Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest);
+    Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest);
     
     Task<PurchaseResponseModel> GetAllPurchasesForUser(int id);
     

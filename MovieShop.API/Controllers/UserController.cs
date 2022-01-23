@@ -33,6 +33,15 @@ namespace MovieShop.API.Controllers
             return Ok(purchases);
         }
         
+        [HttpPost]
+        [Route("purchase")]
+        public async Task<IActionResult> Purchase([FromBody] PurchaseRequestModel model)
+        {
+            var purchase = await _userService.PurchaseMovie(model);
+
+            return Ok(purchase);
+        }
+        
         [HttpGet]
         [Route("{id:int}/favorites")]
         public async Task<IActionResult> GetAllUserFavorites(int id)
