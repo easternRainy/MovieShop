@@ -63,6 +63,22 @@ namespace MovieShop.API.Controllers
             
             return Ok(favorite);
         }
+
+        [HttpPost]
+        [Route("favorite")]
+        public async Task AddFavorite([FromBody] FavoriteRequestModel model)
+        {
+            await _userService.AddFavorite(model);
+        }
+        
+        [HttpPost]
+        [Route("unfavorite")]
+        public async Task RemoveFavorite([FromBody] FavoriteRequestModel model)
+        {
+            await _userService.RemoveFavorite(model);
+        }
+        
+        
         
         [HttpGet]
         [Route("{id:int}/reviews")]
