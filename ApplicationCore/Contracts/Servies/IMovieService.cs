@@ -11,6 +11,6 @@ public interface IMovieService
     Task<MovieDetailsResponseModel> GetMovieDetails(int id);
     Task<List<MovieCardResponseModel>> GetMoviesOfGenre(int genreId);
     Task<List<MovieReviewResponseModel>> GetReviewsOfMovie(int movieId);
-
     Task<PagedResultSet<MovieCardResponseModel>> GetMoviesByPagination(int pageSize, int page, string title);
+    Task<PagedResultSet<MovieCardResponseModel>> GetTopPurchasedMoviesByPagination(int pageSize, int page);
 }

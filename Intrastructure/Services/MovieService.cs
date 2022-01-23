@@ -99,4 +99,16 @@ public class MovieService : IMovieService
         return reviewModels;
     }
 
+    public async Task<PagedResultSet<MovieCardResponseModel>> GetTopPurchasedMoviesByPagination(int pageSize, int page)
+    {
+        var pagedMovies = await _movieRepository.GetTopPurchasedMovies(pageSize, page);
+        var pagedMovieCards = new List<MovieCardResponseModel>();
+        
+        pagedMovieCards.AddRange(pagedMovies.Data.Select(
+                m => MovieCardResponseModel.FromEntity(m)
+            ));
+
+        return new PagedResultSet<MovieCardResponseModel>(pagedMovieCards, page, pageSize, pagedMovies.Count);
+    }
+
 }

@@ -140,13 +140,39 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
             .OrderBy(m => m.Title)
             .Skip((page-1)*pageSize)
             .Take(pageSize)
-            .ToListAsync();
+            .ToListAsync(); 
         
         // total movies for that condition
         // SELECT COUNT(*) From Movies WHERE Title LIKE ..
         var totalMoviesCount = await _dbContext.Movies
             .Where(m => m.Title.Contains(title))
             .CountAsync();
+
+        var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
+
+        return pagedMovies;
+    }
+
+    public async Task<PagedResultSet<Movie>> GetTopPurchasedMovies(int pageSize = 30, int page = 1)
+    {
+        var movieIds = await _dbContext.Purchases
+            .GroupBy(p => p.MovieId)
+            .Select(p => new
+            {
+                MovieId = p.Key,
+                PurchaseCount = p.Count()
+            })
+            .OrderByDescending(pg => pg.PurchaseCount)
+            .Select(pg => pg.MovieId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var movies = await _dbContext.Movies
+            .Where(m => movieIds.Contains(m.Id))
+            .ToListAsync();
+        
+        var totalMoviesCount = await _dbContext.Movies.CountAsync();
 
         var pagedMovies = new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
 
