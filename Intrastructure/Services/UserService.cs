@@ -21,6 +21,11 @@ public class UserService: IUserService
         return newPurchase != null;
     }
 
+    public async Task DeletePurchase(PurchaseRequestModel purchaseRequestModel)
+    {
+        await _userRepository.DeletePurchase(purchaseRequestModel.UserId, purchaseRequestModel.MovieId);
+    }
+
     public async Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest)
     {
         var purchase = await _userRepository.GetPurchaseByUserAndMovie(purchaseRequest.UserId, purchaseRequest.MovieId);
@@ -82,6 +87,11 @@ public class UserService: IUserService
             reviewRequest.ReviewText
         );
         
+    }
+
+    public async Task PutMovieReview(ReviewRequestModel reviewRequest)
+    {
+        await _userRepository.PutMovieReview(reviewRequest.UserId, reviewRequest.MovieId, reviewRequest.Rating, reviewRequest.ReviewText);
     }
 
     public async Task UpdateMovieReview(ReviewRequestModel reviewRequest)

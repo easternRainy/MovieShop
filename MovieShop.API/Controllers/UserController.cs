@@ -99,10 +99,35 @@ namespace MovieShop.API.Controllers
         {
             await _userService.AddMovieReview(model);
         }
-        
+
         [HttpPut]
         [Route("review")]
-        
+        public async Task PutReview([FromBody] ReviewRequestModel model)
+        {
+            await _userService.PutMovieReview(model);
+        }
+
+        [HttpDelete]
+        [Route("{userId:int}/movie/{movieId:int}")]
+        public async Task DeleteUserMovie(int userId, int movieId)
+        {
+            var unfavorite = new FavoriteRequestModel
+            {
+                UserId = userId,
+                MovieId = movieId
+            };
+
+            var unpurchase = new PurchaseRequestModel
+            {
+                UserId = userId,
+                MovieId = movieId
+            };
+            
+            await _userService.DeleteMovieReview(userId, movieId);
+            await _userService.RemoveFavorite(unfavorite);
+            await _userService.DeletePurchase(unpurchase);
+
+        }
         
         
     }

@@ -9,6 +9,7 @@ public interface IUserRepository : IRepository<User>
     Task<Purchase> GetPurchaseByUserAndMovie(int userId, int movieId);
     Task<List<Movie>> GetAllMoviesPurchasedByUser(int userId);
     Task<Purchase> AddNewPurchase(int userId, int movieId, decimal price);
+    Task DeletePurchase(int userId, int movieId);
     Task<List<Favorite>> GetAllFavoritesOfUser(int id);
     Task<Favorite> GetFavoriteByUserAndMovie(int userId, int movieId);
     Task<List<Movie>> GetAllMoviesFavoritedByUser(int userId);
@@ -18,5 +19,6 @@ public interface IUserRepository : IRepository<User>
     Task<Review> GetReviewByUserAndMovie(int userId, int movieId);
     Task<Review> AddNewReview(int userId, int movieId, decimal rating, string text);
     Task<Review> UpdateReview(int userId, int movieId, decimal rating, string text);
+    Task PutMovieReview(int userId, int movieId, decimal rating, string text);
     Task<Review> DeleteReviewByUserAndMovie(int userId, int movieId);
 }

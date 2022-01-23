@@ -10,6 +10,8 @@ public interface IUserService
     Task<PurchaseResponseModel> GetAllPurchasesForUser(int id);
     
     Task<PurchaseDetailsResponseModel> GetPurchasesDetails(int userId, int movieId);
+
+    Task DeletePurchase(PurchaseRequestModel purchaseRequestModel);
     
     Task AddFavorite(FavoriteRequestModel favoriteRequest);
 
@@ -22,6 +24,8 @@ public interface IUserService
     Task AddMovieReview(ReviewRequestModel reviewRequest);
     
     Task UpdateMovieReview(ReviewRequestModel reviewRequest);
+
+    Task PutMovieReview(ReviewRequestModel reviewRequest);
 
     Task DeleteMovieReview(int userId, int movieId);
     

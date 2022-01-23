@@ -78,6 +78,17 @@ public class UserRepository: EfRepository<User>, IUserRepository
 
         return null;
     }
+
+
+    public async Task DeletePurchase(int userId, int movieId)
+    {
+        var purchase = await GetPurchaseByUserAndMovie(userId, movieId);
+        if (purchase != null)
+        {
+            _dbContext.Purchases.Remove(purchase);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
     
     /*
      * Favorite Related Operations
@@ -205,6 +216,24 @@ public class UserRepository: EfRepository<User>, IUserRepository
                 throw new DbUpdateException();
             }
         }
+    }
+
+    public async Task PutMovieReview(int userId, int movieId, decimal rating, string text)
+    {
+        var review = await GetReviewByUserAndMovie(userId, movieId);
+        if (review == null)
+        {
+            await AddNewReview(userId, movieId, rating, text);
+        }
+        else
+        {
+            review.UserId = userId;
+            review.MovieId = movieId;
+            review.Rating = rating;
+            review.ReviewText = text;
+            await _dbContext.SaveChangesAsync();
+        }
+        
     }
 
     public async Task<Review> DeleteReviewByUserAndMovie(int userId, int movieId)
