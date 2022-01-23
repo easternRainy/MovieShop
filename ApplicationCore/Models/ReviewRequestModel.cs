@@ -4,10 +4,10 @@ namespace ApplicationCore.Models;
 
 public class ReviewRequestModel
 {
-    public int MovieId;
-    public int UserId;
-    public decimal Rating;
-    public string? ReviewText;
+    public int MovieId { get; set; }
+    public int UserId { get; set; }
+    public decimal Rating { get; set; }
+    public string? ReviewText { get; set; }
     
     public string ToString()
     {

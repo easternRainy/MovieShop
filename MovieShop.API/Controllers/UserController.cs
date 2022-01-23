@@ -92,6 +92,17 @@ namespace MovieShop.API.Controllers
             
             return Ok(reviews.Reviews);
         }
+
+        [HttpPost]
+        [Route("review")]
+        public async Task AddReview([FromBody] ReviewRequestModel model)
+        {
+            await _userService.AddMovieReview(model);
+        }
+        
+        [HttpPut]
+        [Route("review")]
+        
         
         
     }
