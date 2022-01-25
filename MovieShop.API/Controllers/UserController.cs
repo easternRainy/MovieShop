@@ -19,6 +19,13 @@ namespace MovieShop.API.Controllers
         {
             _userService = userService;
         }
+
+        // [HttpGet]
+        // [Route("details")]
+        // public async Task<IActionResult> GetUserDetails(int userId)
+        // {
+        //     var userDetails = _userService.
+        // }
         
         [HttpGet]
         [Route("{id:int}/purchases")]
@@ -34,7 +41,7 @@ namespace MovieShop.API.Controllers
         }
         
         [HttpPost]
-        [Route("purchase")]
+        [Route("purchase-movie")]
         public async Task<IActionResult> Purchase([FromBody] PurchaseRequestModel model)
         {
             var purchase = await _userService.PurchaseMovie(model);
@@ -72,11 +79,18 @@ namespace MovieShop.API.Controllers
         }
         
         [HttpPost]
-        [Route("unfavorite")]
+        [Route("un-favorite")]
         public async Task RemoveFavorite([FromBody] FavoriteRequestModel model)
         {
             await _userService.RemoveFavorite(model);
         }
+
+        // [HttpGet]
+        // [Route("check-movie-favorite/{movieId:int}")]
+        // public async Task<IActionResult> CheckMovieFavoritedByUser(int movieId)
+        // {
+        //     var userId = _userService
+        // }
         
         
         
@@ -94,18 +108,20 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpPost]
-        [Route("review")]
+        [Route("add-review")]
         public async Task AddReview([FromBody] ReviewRequestModel model)
         {
             await _userService.AddMovieReview(model);
         }
 
         [HttpPut]
-        [Route("review")]
+        [Route("edit-review")]
         public async Task PutReview([FromBody] ReviewRequestModel model)
         {
             await _userService.PutMovieReview(model);
         }
+        
+        // delete-review NOT Implement
 
         [HttpDelete]
         [Route("{userId:int}/movie/{movieId:int}")]
