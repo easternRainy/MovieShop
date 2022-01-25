@@ -1,4 +1,5 @@
 using ApplicationCore.Contracts.Servies;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers;
@@ -34,7 +35,12 @@ public class MoviesController : Controller
     public async Task<IActionResult> Genre(int id)
     {
         int genreId = id;
-        var movieModels = await _movieService.GetMoviesOfGenre(genreId);
+        var pagedMovieModels = await _movieService.GetMoviesOfGenreByPagination(genreId);
+        List<MovieCardResponseModel> movieModels = new List<MovieCardResponseModel>();
+        foreach (var model in pagedMovieModels.Data)
+        {
+            movieModels.Add(model);
+        }
         
         return View(movieModels);
     }
