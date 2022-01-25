@@ -151,9 +151,10 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         return pagedMovies;
     }
 
-    public async Task<PagedResultSet<Movie>> GetTopPurchasedMovies(int pageSize = 30, int page = 1)
+    public async Task<PagedResultSet<Movie>> GetTopPurchasedMovies(DateTime fromDate, DateTime endDate, int pageSize = 30, int page = 1)
     {
         var movieIds = await _dbContext.Purchases
+            .Where(p => p.PurchaseDateTime >= fromDate && p.PurchaseDateTime <= endDate)
             .GroupBy(p => p.MovieId)
             .Select(p => new
             {
@@ -182,6 +183,41 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         var movieEntity = MovieCreateRequestModel.ToEntity(model);
         await _dbContext.Movies.AddAsync(movieEntity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<bool> UpdateMovieDetails(MovieCreateRequestModel model)
+    {
+        var movie = await _dbContext.Movies
+            .Where(m => m.Title == model.Title)
+            .SingleOrDefaultAsync();
+
+        if (movie == null)
+        {
+            return false;
+        }
+
+        List<Genre> genres = new List<Genre>();
+
+        foreach (var genreModel in model.Genres)
+        {
+            genres.Add(GenreModel.ToEntity(genreModel));
+        }
+
+        movie.Overview = model.Overview;
+        movie.Tagline = model.Tagline;
+        movie.Revenue = model.Revenue;
+        movie.Budget = model.Budget;
+        movie.ImdbUrl = model.ImdbUrl;
+        movie.TmdbUrl = model.TmdbUrl;
+        movie.PosterUrl = model.PosterUrl;
+        movie.BackdropUrl = model.BackdropUrl;
+        movie.OriginalLanguage = model.OriginalLanguage;
+        movie.ReleaseDate = model.ReleaseDate;
+        movie.RunTime = model.RunTime;
+        movie.Price = model.Price;
+
+        await _dbContext.SaveChangesAsync();
+        return true;
     }
 
 }

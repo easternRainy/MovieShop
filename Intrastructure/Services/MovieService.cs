@@ -99,9 +99,9 @@ public class MovieService : IMovieService
         return reviewModels;
     }
 
-    public async Task<PagedResultSet<MovieCardResponseModel>> GetTopPurchasedMoviesByPagination(int pageSize, int page)
+    public async Task<PagedResultSet<MovieCardResponseModel>> GetTopPurchasedMoviesByPagination(DateTime fromDate, DateTime endDate, int pageSize, int page)
     {
-        var pagedMovies = await _movieRepository.GetTopPurchasedMovies(pageSize, page);
+        var pagedMovies = await _movieRepository.GetTopPurchasedMovies(fromDate, endDate, pageSize, page);
         var pagedMovieCards = new List<MovieCardResponseModel>();
         
         pagedMovieCards.AddRange(pagedMovies.Data.Select(
@@ -114,6 +114,12 @@ public class MovieService : IMovieService
     public async Task CreateMovie(MovieCreateRequestModel model)
     {
         await _movieRepository.CreateMovie(model);
+    }
+
+    public async Task<bool> UpdateMovieDetails(MovieCreateRequestModel model)
+    {
+        var success = await _movieRepository.UpdateMovieDetails(model);
+        return success;
     }
 
 }

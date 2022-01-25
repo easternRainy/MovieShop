@@ -20,20 +20,21 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("purchases")]
-        public async Task<IActionResult> GetTopPurchasedMovies(int pageSize, int page)
+        [Route("top-purchased-movies")]
+        public async Task<IActionResult> GetTopPurchasedMovies(int pageSize, int page, DateTime fromDate, DateTime endDate)
         {
-            var pagedMovies = await _movieService.GetTopPurchasedMoviesByPagination(pageSize, page);
-            var movies = pagedMovies.Data;
+            if (endDate == null)
+            {
+                endDate = DateTime.Today;
+            }
 
-            // if (!movies.Any())
-            // {
-            //     return NotFound();
-            // }
-            // else
-            // {
-            //     return Ok(movies);
-            // }
+            if (fromDate == null)
+            {
+                fromDate = DateTime.Today.AddDays(-90);
+            }
+            
+            var pagedMovies = await _movieService.GetTopPurchasedMoviesByPagination(fromDate, endDate, pageSize, page);
+            var movies = pagedMovies.Data;
 
             if (pagedMovies == null)
             {
@@ -48,6 +49,15 @@ namespace MovieShop.API.Controllers
         public async Task CreateMovie([FromBody] MovieCreateRequestModel model)
         {
             await _movieService.CreateMovie(model);
+        }
+
+        [HttpPut]
+        [Route("movie")]
+        public async Task<IActionResult> UpdateMovieDetails([FromBody] MovieCreateRequestModel model)
+        {
+            var success = await _movieService.UpdateMovieDetails(model);
+
+            return Ok(success);
         }
 
     }

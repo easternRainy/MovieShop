@@ -14,6 +14,7 @@ public interface IMovieRepository: IRepository<Movie>
     Task<List<Review>> GetReviewsOfMovie(int movieId);
     Task<List<Trailer>> GetTrailersOfMovie(int movieId);
     Task<PagedResultSet<Movie>> GetMoviesByTitle(int pageSize=30, int page=1, string title="");
-    Task<PagedResultSet<Movie>> GetTopPurchasedMovies(int pageSize = 30, int page = 1);
+    Task<PagedResultSet<Movie>> GetTopPurchasedMovies(DateTime fromDate, DateTime endDate, int pageSize = 30, int page = 1);
     Task CreateMovie(MovieCreateRequestModel model);
+    Task<bool> UpdateMovieDetails(MovieCreateRequestModel model);
 }
