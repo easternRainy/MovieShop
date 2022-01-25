@@ -19,11 +19,19 @@ namespace MovieShop.API.Controllers
             _accountService = accountService;
         }
 
-        [HttpGet]
-        [Route("Account/{id:int}")]
-        public async Task<IActionResult> GetAccountById(int id)
+        [HttpPost]
+        [Route("register")]
+        public async Task CreateAccount([FromBody] UserRegisterRequestModel model)
         {
-            var user = await _accountService.GetUserById(id);
+            var success = await _accountService.Register(model);
+            
+        }
+        
+        [HttpGet]
+        [Route("Account/check-email")]
+        public async Task<IActionResult> GetEmailExists(string email)
+        {
+            var user = await _accountService.GetUserByEmail(email);
             if (user == null)
             {
                 return NotFound();
@@ -31,14 +39,7 @@ namespace MovieShop.API.Controllers
 
             return Ok(user);
         }
-
-        [HttpPost]
-        [Route("Account")]
-        public async Task CreateAccount([FromBody] UserRegisterRequestModel model)
-        {
-            var success = await _accountService.Register(model);
-            
-        }
+        
 
         [HttpPost]
         [Route("login")]
