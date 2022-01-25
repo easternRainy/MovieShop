@@ -49,25 +49,23 @@ public class MovieService : IMovieService
         var casts = await _movieRepository.GetCastsByMovie(id);
         var movieCasts = await _movieRepository.GetMovieCastsByMovie(id);
         var genres = await _movieRepository.GetGenresOfMovie(id);
-        var reviews = await _movieRepository.GetReviewsOfMovie(id);
+        //var reviews = await _movieRepository.GetReviewsOfMovieByPagination(id);
         var trailers = await _movieRepository.GetTrailersOfMovie(id);
-        var movieDetails = MovieDetailsResponseModel.FromEntity(movie, casts, movieCasts, genres, reviews, trailers);
+        var movieDetails = MovieDetailsResponseModel.FromEntity(movie, casts, movieCasts, genres, null, trailers);
 
         return movieDetails;
     }
 
-    public async Task<List<MovieCardResponseModel>> GetMoviesOfGenre(int id)
+    public async Task<PagedResultSet<MovieCardResponseModel>> GetMoviesOfGenreByPagination(int id, int pageSize=30, int page=1)
     {
         int genreId = id;
 
-        var movies = await _movieRepository.GetMoviesOfGenre(genreId);
-        List<MovieCardResponseModel> movieModels = new List<MovieCardResponseModel>();
-        foreach (var movie in movies)
-        {
-            movieModels.Add(MovieCardResponseModel.FromEntity(movie));
-        }
+        var pagedMovies = await _movieRepository.GetMoviesOfGenreByPagination(genreId, pageSize, page);
+        var pagedMovieCards = new List<MovieCardResponseModel>();
+        
+        pagedMovieCards.AddRange(pagedMovies.Data.Select(m => MovieCardResponseModel.FromEntity(m)));
 
-        return movieModels;
+        return new PagedResultSet<MovieCardResponseModel>(pagedMovieCards, page, pageSize, pagedMovies.Count);
     }
 
     public async Task<PagedResultSet<MovieCardResponseModel>> GetMoviesByPagination(int pageSize, int page,
@@ -87,16 +85,14 @@ public class MovieService : IMovieService
         return new PagedResultSet<MovieCardResponseModel>(pagedMovieCards, page, pageSize, pagedMovies.Count);
     }
 
-    public async Task<List<MovieReviewResponseModel>> GetReviewsOfMovie(int movieId)
+    public async Task<PagedResultSet<MovieReviewResponseModel>> GetReviewsOfMovieByPagination(int movieId, int pageSize=30, int page=1)
     {
-        var reviews = await _movieRepository.GetReviewsOfMovie(movieId);
-        var reviewModels = new List<MovieReviewResponseModel>();
-        foreach (var review in reviews)
-        {
-            reviewModels.Add(MovieReviewResponseModel.FromEntity(review));
-        }
+        var pagedReviews = await _movieRepository.GetReviewsOfMovieByPagination(movieId, pageSize, page);
+        var pagedReviewModels = new List<MovieReviewResponseModel>();
+        
+        pagedReviewModels.AddRange(pagedReviews.Data.Select(r => MovieReviewResponseModel.FromEntity(r)));
 
-        return reviewModels;
+        return new PagedResultSet<MovieReviewResponseModel>(pagedReviewModels, page, pageSize, pagedReviews.Count);
     }
 
     public async Task<PagedResultSet<MovieCardResponseModel>> GetTopPurchasedMoviesByPagination(DateTime fromDate, DateTime endDate, int pageSize, int page)

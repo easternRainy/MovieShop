@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ApplicationCore.Contracts.Servies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NuGet.Protocol;
 
 namespace MovieShop.API.Controllers
@@ -47,7 +48,7 @@ namespace MovieShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("toprated")]
+        [Route("top-rated")]
         public async Task<IActionResult> GetTopRatedMovies()
         {
             var movies = await _movieService.GetTop30RatingMovies();
@@ -62,7 +63,7 @@ namespace MovieShop.API.Controllers
         
         // api/genres
         [HttpGet]
-        [Route("toprevenue")]
+        [Route("top-grossing")]
         public async Task<IActionResult> GetTopRevenueMovies()
         {
             var movies = await _movieService.GetTop30GrossingMovies();
@@ -79,12 +80,12 @@ namespace MovieShop.API.Controllers
 
 
         [HttpGet]
-        [Route("genre")]
-        public async Task<IActionResult> GetMoviesByGenre(int genreId)
+        [Route("genre/{genreId:int}")]
+        public async Task<IActionResult> GetMoviesOfGenreByPaginationi(int genreId, int pageSize=30, int page=1)
         {
-            var movies = await _movieService.GetMoviesOfGenre(genreId);
+            var movies = await _movieService.GetMoviesOfGenreByPagination(genreId, pageSize, page);
 
-            if (!movies.Any())
+            if (movies == null)
             {
                 return NotFound();
             }
@@ -94,11 +95,11 @@ namespace MovieShop.API.Controllers
 
         [HttpGet]
         [Route("{id:int}/reviews")]
-        public async Task<IActionResult> GetMovieReviews(int id)
+        public async Task<IActionResult> GetMovieReviewsByPagination(int id, int pageSize=30, int page=1)
         {
-            var reviews = await _movieService.GetReviewsOfMovie(id);
+            var reviews = await _movieService.GetReviewsOfMovieByPagination(id, pageSize, page);
 
-            if (!reviews.Any())
+            if (reviews == null)
             {
                 return NotFound();
             }

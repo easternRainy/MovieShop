@@ -98,26 +98,32 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
         return genres;
     }
 
-    public async Task<List<Movie>> GetMoviesOfGenre(int genreId)
+    public async Task<PagedResultSet<Movie>> GetMoviesOfGenreByPagination(int genreId, int pageSize=30, int page=1)
     {
         var movies = await _dbContext.MovieGenres
             .Include(mg => mg.Movie)
             .Where(mg => mg.GenreId == genreId)
             .Select(mg => mg.Movie)
-            .Take(10)
+            .Skip((page-1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
-        return movies;
+        var totalMoviesCount = await _dbContext.Movies.CountAsync();
+        
+        return new PagedResultSet<Movie>(movies, page, pageSize, totalMoviesCount);
     }
 
-    public async Task<List<Review>> GetReviewsOfMovie(int movieId)
+    public async Task<PagedResultSet<Review>> GetReviewsOfMovieByPagination(int movieId, int pageSize=30, int page=1)
     {
         var reviews = await _dbContext.Reviews
             .Where(r => r.MovieId == movieId)
-            .Take(10)
+            .Skip((page-1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
 
-        return reviews;
+        var totalReviewsCount = await _dbContext.Reviews.CountAsync();
+
+        return new PagedResultSet<Review>(reviews, page, pageSize, totalReviewsCount);
     }
 
     public async Task<List<Trailer>> GetTrailersOfMovie(int movieId)
