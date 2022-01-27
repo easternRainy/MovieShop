@@ -3,21 +3,26 @@ using System.Threading.Tasks;
 using ApplicationCore.Contracts.Servies;
 using ApplicationCore.Models;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using MovieShop.API.Helpers;
 using NuGet.Protocol;
 
 namespace MovieShop.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ICurrentLoginUserService _currentUser;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ICurrentLoginUserService currentUser)
         {
             _userService = userService;
+            _currentUser = currentUser;
         }
 
         // [HttpGet]
@@ -28,10 +33,11 @@ namespace MovieShop.API.Controllers
         // }
         
         [HttpGet]
-        [Route("{id:int}/purchases")]
-        public async Task<IActionResult> GetAllUserPurchases(int id)
+        [Route("purchases")]
+        public async Task<IActionResult> GetAllUserPurchases()
         {
-            var purchases = await _userService.GetAllPurchasesForUser(id);
+            var userId = _currentUser.UserId;
+            var purchases = await _userService.GetAllPurchasesForUser(userId);
             if (purchases == null)
             {
                 return NotFound();
