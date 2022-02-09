@@ -22,6 +22,11 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
             .OrderByDescending(m => m.Revenue)
             .Take(30)
             .ToListAsync();
+
+        // var query = _dbContext.Movies
+        //     .OrderByDescending(m => m.Revenue)
+        //     .Take(30);
+        // var queryStr = query.ToQueryString();
         
         return movies;
     }
@@ -94,6 +99,8 @@ public class MovieRepository : EfRepository<Movie>, IMovieRepository
             .Select(mg => mg.Genre)
             .Take(10)
             .ToListAsync();
+        
+        
 
         return genres;
     }

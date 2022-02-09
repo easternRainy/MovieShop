@@ -27,10 +27,11 @@ namespace MovieShop.API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task CreateAccount([FromBody] UserRegisterRequestModel model)
+        public async Task<IActionResult> CreateAccount([FromBody] UserRegisterRequestModel model)
         {
             var success = await _accountService.Register(model);
-            
+
+            return Ok(success);
         }
         
         [HttpGet]
